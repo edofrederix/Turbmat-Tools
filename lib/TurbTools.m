@@ -63,8 +63,7 @@ classdef TurbTools < handle
     
     properties
         % ---- General settings with default values ----
-        %c_authkey = 'edu.jhu.pha.turbulence.testing-201104'
-        c_authkey = 'edu.jhu.jgraha34-857fbf6f'
+        c_authkey = 'edu.jhu.pha.turbulence.testing-201104'
         c_dataset = 'isotropic1024coarse'
         c_spatialInt
         c_spatialDiff
