@@ -1,7 +1,7 @@
 %
 % Turbmat - a Matlab library for the JHU Turbulence Database Cluster
 %   
-% PDF Velocity Increments, part of Turbmat
+% PDF of Velocity Increments, part of Turbmat
 %
 
 %
@@ -10,7 +10,7 @@
 % Edo Frederix
 % The Johns Hopkins University
 % Department of Mechanical Engineering
-% edofrederix@jhu.edu
+% edofrederix@jhu.edu, edofrederix@gmail.com
 %
 
 %

@@ -10,7 +10,7 @@
 % Edo Frederix
 % The Johns Hopkins University
 % Department of Mechanical Engineering
-% edofrederix@jhu.edu
+% edofrederix@jhu.edu, edofrederix@gmail.com
 %
 
 %
