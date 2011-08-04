@@ -1,5 +1,5 @@
 %
-% JHU Turbulence Database Matlab client code
+% Turbmat - a Matlab library for the JHU Turbulence Database Cluster
 %   
 % 2D Velocity Zoom, part of Turbmat
 %

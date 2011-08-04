@@ -1,5 +1,5 @@
 %
-% JHU Turbulence Database Matlab client code
+% Turbmat - a Matlab library for the JHU Turbulence Database Cluster
 %   
 % PDF Velocity Increments, part of Turbmat
 %
