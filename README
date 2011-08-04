@@ -12,15 +12,25 @@ edofrederix@jhu.edu, edofrederix@gmail.com
 
 Turbmat is a Matlab library for the JHU Turbulence Database Cluster. Turbmat
 provides a wrapper around Matlab's intrinsic web service functions for calling
-the JHU Turbulence Database Cluster. 
+the JHU Turbulence Database Cluster.
 
-However, three core SOAP functions have been replaced by lightweight non-DOM modifications, to enable large requests. For each database function a wrapper has been created to perform the data translation and retrieval.
+However, three core SOAP functions have been replaced by lightweight non-DOM
+modifications, to enable large requests. For each database function a wrapper
+has been created to perform the data translation and retrieval.
 
-This package comes with six ready-to-use example scripts for performing requests on the JHU Turbulence Database. These scripts do not require any modification. All input data is required from the user by visual input boxes.
+This package comes with six ready-to-use example scripts for performing
+requests on the JHU Turbulence Database. These scripts do not require any
+modification. All input data is required from the user by visual input boxes.
 
-All six scripts make use of the TurbTools class. This class, purposefully developed for Turbmat, contains a large set of useful functions to request, parse and visualize data from the database.
+All six scripts make use of the TurbTools class. This class, purposefully
+developed for Turbmat, contains a large set of useful functions to request,
+parse and visualize data from the database.
 
-To increase the performance of this package, there has been implemented local caching functionality. This is accomplished by creating an extra layer between the Matlab code and the database, called TurbCache. The TurbCache class stores requests in a uniquely named cache file, and tries to retrieve a request straight from this cache file if possible.
+To increase the performance of this package, there has been implemented local
+caching functionality. This is accomplished by creating an extra layer between
+the Matlab code and the database, called TurbCache. The TurbCache class stores
+requests in a uniquely named cache file, and tries to retrieve a request
+straight from this cache file if possible.
 
 
 ---- Credits -----------------------------------------------------------------
@@ -32,18 +42,25 @@ This package is based on the original Turbmat code, written by:
   Department of Mechanical Engineering
   jgraha8@gmail.com
 
-This includes the TurbulenceService class files, as well as the Database function files, such as getVelocity.m, getVelocityAndPressure.m, etc. These files still contain the original credentials.
+This includes the TurbulenceService class files, as well as the Database
+function files, such as getVelocity.m, getVelocityAndPressure.m, etc. These
+files still contain the original credentials.
 
-All other code, including all turbm_*.m files, TurbCache.m and TurbTools.m, but with the exception of turbm_callSoapService.m and turbm_createSoapMessage.m are written by:
+All other code, including all turbm_*.m files, TurbCache.m and TurbTools.m,
+but with the exception of turbm_callSoapService.m and
+turbm_createSoapMessage.m are written by:
 
   Edo Frederix
   The Johns Hopkins University
   Department of Mechanical Engineering
   edofrederix@jhu.edu, edofrederix@gmail.com
 
-The turbm_callSoapService.m and turbm_createSoapMessage.m files are modifications of their Matlab originals.
+The turbm_callSoapService.m and turbm_createSoapMessage.m files are
+modifications of their Matlab originals.
 
-This package is shipped under the terms of the GNU General Public License version 3 or any later version. A copy of the GNU GPL v3 resides in this package. A more formal statement can be found at the bottom of this file.
+This package is shipped under the terms of the GNU General Public License
+version 3 or any later version. A copy of the GNU GPL v3 resides in this
+package. A more formal statement can be found at the bottom of this file.
 
 
 ---- Example scripts ---------------------------------------------------------
