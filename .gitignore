@@ -1,0 +1,9 @@
+# Cache files
+cachedata/*.cache
+
+# Matlab autosave files
+*.m~
+
+# OS generated files
+. DS_Store?
+Thumbs.db
