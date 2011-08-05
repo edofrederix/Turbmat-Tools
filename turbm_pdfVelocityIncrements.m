@@ -273,7 +273,7 @@ x_plot(4) = loglog(rnd, yy2, 'r--', 'LineWidth', 1.3);
 grid;
 ylabel('{{\sigma}_r}^2');
 xlabel('r/{\eta}');
-legend(x_plot, 'Longitudinal', 'Transverse', 'C_2 {\epsilon}^{2/3} r^{2/3}', '4/3 * C_2 {\epsilon}^{2/3} r^{2/3}');
+legend(x_plot, 'Longitudinal', 'Transverse', '2.1 * {\epsilon}^{2/3} r^{2/3}', '4/3 * 2.1 * {\epsilon}^{2/3} r^{2/3}');
 title('Structure function');
 
 %

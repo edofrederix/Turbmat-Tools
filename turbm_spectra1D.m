@@ -138,7 +138,7 @@ plot(kEta2, EIS, 'b', 'LineWidth', 1.6);
 
 % Style figure
 grid;
-text(kEta2(20)*2, EIS(20)*2, 'E~(k*\eta)^{-5/3}');
+text(kEta2(20)*2, EIS(20)*2, 'E_{11} = (18/55) * 1.6 * (k*\eta)^{-5/3}');
 title('Power spectrum');
-ylabel('E(k)/(\epsilon*\nu^5)^{1/4}');
+ylabel('E_{11}/(\epsilon*\nu^5)^{1/4}');
 xlabel('k*\eta');
