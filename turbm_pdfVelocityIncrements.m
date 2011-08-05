@@ -219,7 +219,7 @@ keys = fieldnames(s_ltPDF);
 x_plot = zeros(1,4);
 for i = 1:numel(keys)
     key = char(keys(i));
-    x_plot(i) = plot(s_ltPDF.(key).x, log(s_ltPDF.(key).y), 'Color', m_colors(i,:), 'LineWidth', 1.3); hold on;
+    x_plot(i) = plot(s_ltPDF.(key).x, log10(s_ltPDF.(key).y), 'Color', m_colors(i,:), 'LineWidth', 1.3); hold on;
 end
 
 % Style figure
@@ -238,7 +238,7 @@ keys = fieldnames(s_tvPDF);
 x_plot = zeros(1,4);
 for i = 1:numel(keys)
     key = char(keys(i));
-    x_plot(i) = plot(s_tvPDF.(key).x, log(s_tvPDF.(key).y), 'Color', m_colors(i,:), 'LineWidth', 1.3); hold on;
+    x_plot(i) = plot(s_tvPDF.(key).x, log10(s_tvPDF.(key).y), 'Color', m_colors(i,:), 'LineWidth', 1.3); hold on;
 end
 
 % Style figure
