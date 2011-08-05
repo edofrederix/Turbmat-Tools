@@ -73,9 +73,28 @@ As stated, this package contains a few example scripts. These scripts are:
     gradient components are grouped in transverse and longitudinal sets, and
     logarithmically shown.
 
-  * PDF of Velocity Increments.
+  * PDF of Velocity Increments. This scripts fetches a provided number of
+    blocks, consisting of 32x128x512 physical grid points, queried by 32x32x32
+    points. Within this block, we can calculate velocity increments ranging
+    from 1 physical grid point to 256 grid points. This is the equivalent of
+    around 2 to 550 Kolmogorov length scales. We can accumulate important
+    turbulence statistics from the velocity increments, such as skewness and
+    kurtosis. This script presents these statistics in a few graphs.
+    
+  * 1D Energy Spectrum. This script generates a provided number of randomly
+    positioned and oriented lines, crossing the complete simulation domain
+    present in the database. For all grid points that are on these lines, the
+    inline velocity component is queried. For every single line, we now have a
+    signal that can be transformed to the frequency domain, using Matlab's
+    standard FFT function. The discrete Fourier transform of the line signals
+    can be used to compute the energy spectrum. This energy spectrum is scaled
+    and displayed by this script.
+    
+  * 3D Vorticity.
 
-<to be continued>
+  * 2D Velocity.
+
+  * 2D Velocity zoom.
 
 
 ---- License -----------------------------------------------------------------
