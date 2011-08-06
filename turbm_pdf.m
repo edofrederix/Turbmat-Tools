@@ -8,7 +8,7 @@
 % Written by:
 % 
 % Edo Frederix
-% The Johns Hopkins University
+% The Johns Hopkins University / Eindhoven University of Technology
 % Department of Mechanical Engineering
 % edofrederix@jhu.edu, edofrederix@gmail.com
 %
@@ -151,10 +151,10 @@ m_ltGrad = m_result9([1 5 9], :);
 [m_tv m_tvGradPDF] = TT.calculatePDF(m_tvGrad, i_pdfBins, 10, i_nondim, 1);
 [m_lt m_ltGradPDF] = TT.calculatePDF(m_ltGrad, i_pdfBins, 10, i_nondim, 1);
 
-plot(m_lt, log(m_ltGradPDF), 'Color', m_colors(1,:), 'LineWidth', 1.3); hold on;
-plot(m_tv, log(m_tvGradPDF), 'Color', m_colors(end,:), 'LineWidth', 1.3);
-plot(m_lt, log(m_ltGradPDF), 'r.', 'LineWidth', 1.3);
-plot(m_tv, log(m_tvGradPDF), 'r.', 'LineWidth', 1.3);
+plot(m_lt, log10(m_ltGradPDF), 'Color', m_colors(1,:), 'LineWidth', 1.3); hold on;
+plot(m_tv, log10(m_tvGradPDF), 'Color', m_colors(end,:), 'LineWidth', 1.3);
+plot(m_lt, log10(m_ltGradPDF), 'r.', 'LineWidth', 1.3);
+plot(m_tv, log10(m_tvGradPDF), 'r.', 'LineWidth', 1.3);
 
 % Style figure
 grid;

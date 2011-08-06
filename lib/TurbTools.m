@@ -8,7 +8,7 @@
 % Written by:
 % 
 % Edo Frederix
-% The Johns Hopkins University
+% The Johns Hopkins University / Eindhoven University of Technology
 % Department of Mechanical Engineering
 % edofrederix@jhu.edu, edofrederix@gmail.com
 %
@@ -943,10 +943,10 @@ classdef TurbTools < handle
             m_ones = ones(size(scalar));
             
             for i = linspace(startf, endf, npoints)
-                [PT.x_faces PT.x_verts PT.x_colors] = isosurface(m_X1, m_X2, m_X3, scalar, i, m_ones*i);
+                [x_faces x_verts x_colors] = isosurface(m_X1, m_X2, m_X3, scalar, i, m_ones*i);
 
-                x_patch = patch('Vertices', PT.x_verts, 'Faces', PT.x_faces, ... 
-                    'FaceVertexCData', PT.x_colors, ...
+                x_patch = patch('Vertices', x_verts, 'Faces', x_faces, ... 
+                    'FaceVertexCData', x_colors, ...
                     'FaceColor','interp', ... 
                     'edgecolor', 'none');
             end

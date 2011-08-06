@@ -8,7 +8,7 @@
 % Written by:
 % 
 % Edo Frederix
-% The Johns Hopkins University
+% The Johns Hopkins University / Eindhoven University of Technology
 % Department of Mechanical Engineering
 % edofrederix@jhu.edu, edofrederix@gmail.com
 %
@@ -158,7 +158,11 @@ for i = 1:numel(keys)
         % PDF
         [s_ltPDF.(key).x, s_ltPDF.(key).y, ~, ~, m_ltSF(count)] = TT.calculatePDF(s_lt.(key), i_pdfBins, f_pdfBinRatio, 1, 1); %#ok<SAGROW>
         [s_tvPDF.(key).x, s_tvPDF.(key).y, ~, ~, m_tvSF(count)] = TT.calculatePDF(s_tv.(key), i_pdfBins, f_pdfBinRatio, 1, 1); %#ok<SAGROW>
-
+        
+        % 3rd moment
+        m_lt3rd(count) = moment(s_lt.(key), 3); %#ok<SAGROW>
+        m_tv3rd(count) = moment(s_tv.(key), 3); %#ok<SAGROW>
+        
         % Skewness
         m_ltS(count) = skewness(s_lt.(key)); %#ok<SAGROW>
         m_tvS(count) = skewness(s_tv.(key)); %#ok<SAGROW>
@@ -219,7 +223,7 @@ keys = fieldnames(s_ltPDF);
 x_plot = zeros(1,4);
 for i = 1:numel(keys)
     key = char(keys(i));
-    x_plot(i) = plot(s_ltPDF.(key).x, log(s_ltPDF.(key).y), 'Color', m_colors(i,:), 'LineWidth', 1.3); hold on;
+    x_plot(i) = plot(s_ltPDF.(key).x, log10(s_ltPDF.(key).y), 'Color', m_colors(i,:), 'LineWidth', 1.3); hold on;
 end
 
 % Style figure
@@ -238,7 +242,7 @@ keys = fieldnames(s_tvPDF);
 x_plot = zeros(1,4);
 for i = 1:numel(keys)
     key = char(keys(i));
-    x_plot(i) = plot(s_tvPDF.(key).x, log(s_tvPDF.(key).y), 'Color', m_colors(i,:), 'LineWidth', 1.3); hold on;
+    x_plot(i) = plot(s_tvPDF.(key).x, log10(s_tvPDF.(key).y), 'Color', m_colors(i,:), 'LineWidth', 1.3); hold on;
 end
 
 % Style figure
@@ -255,7 +259,7 @@ title('Logarithmic PDF of transverse velocity increments');
 TT.startFigure(3);
 rnd = r./TT.KOLMOGOROV_LENGTH;
 
-subplot(2,2,[1 2]);
+subplot(2,2,1);
 
 x_plot = zeros(1,4);
 x_plot(1) = loglog(rnd, m_ltSF, 'Color', m_colors(1,:), 'LineWidth', 1.3); hold on;
@@ -273,8 +277,27 @@ x_plot(4) = loglog(rnd, yy2, 'r--', 'LineWidth', 1.3);
 grid;
 ylabel('{{\sigma}_r}^2');
 xlabel('r/{\eta}');
-legend(x_plot, 'Longitudinal', 'Transverse', 'C_2 {\epsilon}^{2/3} r^{2/3}', '4/3 * C_2 {\epsilon}^{2/3} r^{2/3}');
+legend(x_plot, 'Longitudinal', 'Transverse', '2.1 * {\epsilon}^{2/3} r^{2/3}', '4/3 * 2.1 * {\epsilon}^{2/3} r^{2/3}');
 title('Structure function');
+
+%
+% ---- Plot 3rd moment ----
+%
+
+subplot(2,2,2);
+
+x_plot = zeros(1,2);
+x_plot(1) = semilogx(rnd, m_lt3rd, 'Color', m_colors(1,:), 'LineWidth', 1.3); hold on;
+semilogx(rnd, m_lt3rd, 'r.', 'LineWidth', 1.3);
+x_plot(2) = semilogx(rnd, m_tv3rd, 'Color', m_colors(end,:), 'LineWidth', 1.3);
+semilogx(rnd, m_tv3rd, 'r.', 'LineWidth', 1.3);
+
+% Style figure
+grid;
+ylabel('{{\mu}_r}^3');
+xlabel('r/{\eta}');
+legend(x_plot, 'Longitudinal', 'Transverse');
+title('Third central moment');
 
 %
 % ---- Plot skewness ----
