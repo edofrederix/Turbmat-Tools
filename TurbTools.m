@@ -89,6 +89,15 @@ classdef TurbTools < handle
             PT.c_temporalInt = PT.NO_T_INT;
             PT.c_spatialDiff = PT.FD4_DIFF_NO_INT;
             
+            % See if we have an authtoken.txt file
+            fid = fopen('authtoken.txt');
+            if fid > 0
+                token = fgets(fid);
+                if ischar(token)
+                    PT.c_authkey = token;
+                end
+            end
+            
             % Start TurbCache class
             if useCache
                 PT.RC = TurbCache(PT);

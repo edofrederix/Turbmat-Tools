@@ -38,7 +38,6 @@ clear all;
 close all;
 beep off;
 clc;
-addpath('lib');
 
 TT = TurbTools(1);
 TT.c_spatialInt = TT.LAG8_INT;

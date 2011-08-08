@@ -1,4 +1,4 @@
-Turbmat - a Matlab library for the JHU Turbulence Database Cluster
+Turbmat Tools - a Matlab library for the JHU Turbulence Database Cluster
 See the end of the file for license conditions.
 
 Written by:
@@ -10,21 +10,20 @@ edofrederix@jhu.edu, edofrederix@gmail.com
 
 ---- Summary -----------------------------------------------------------------
 
-Turbmat is a Matlab library for the JHU Turbulence Database Cluster. Turbmat
-provides a wrapper around Matlab's intrinsic web service functions for calling
-the JHU Turbulence Database Cluster.
-
-However, three core SOAP functions have been replaced by lightweight non-DOM
-modifications, to enable large requests. For each database function a wrapper
-has been created to perform the data translation and retrieval.
+Turbmat Tools is a Matlab package with ready-to-use scripts that make use of
+the Turbmat package. The Turbmat package ais a Matlab library for the JHU
+Turbulence Database Cluster. Turbmat provides a wrapper around Matlab's
+intrinsic web service functions for calling the JHU Turbulence Database
+Cluster. This package, called "Turbmat Tools", makes use of this Turbmat
+library, to connect to the turbulence database.
 
 This package comes with six ready-to-use example scripts for performing
 requests on the JHU Turbulence Database. These scripts do not require any
 modification. All input data is required from the user by visual input boxes.
 
 All six scripts make use of the TurbTools class. This class, purposefully
-developed for Turbmat, contains a large set of useful functions to request,
-parse and visualize data from the database.
+developed for Turbmat Tools, contains a large set of useful functions to
+request, parse and visualize data from the database.
 
 To increase the performance of this package, there has been implemented local
 caching functionality. This is accomplished by creating an extra layer between
@@ -35,32 +34,18 @@ straight from this cache file if possible.
 
 ---- Credits -----------------------------------------------------------------
 
-This package is based on the original Turbmat code, written by:
-
-  Jason Graham
-  The Johns Hopkins University
-  Department of Mechanical Engineering
-  jgraha8@gmail.com
-
-This includes the TurbulenceService class files, as well as the Database
-function files, such as getVelocity.m, getVelocityAndPressure.m, etc. These
-files still contain the original credentials.
-
-All other code, including all turbm_*.m files, TurbCache.m and TurbTools.m,
-but with the exception of turbm_callSoapService.m and
-turbm_createSoapMessage.m are written by:
+All code in this package is written by:
 
   Edo Frederix
-  The Johns Hopkins University
+  The Johns Hopkins University / Eindhoven University of Technology
   Department of Mechanical Engineering
   edofrederix@jhu.edu, edofrederix@gmail.com
-
-The turbm_callSoapService.m and turbm_createSoapMessage.m files are
-modifications of their Matlab originals.
 
 This package is shipped under the terms of the GNU General Public License
 version 3 or any later version. A copy of the GNU GPL v3 resides in this
 package. A more formal statement can be found at the bottom of this file.
+
+As a sign of appreciation, the names of Charles Meneveau (professor at JHU) and Jason Graham (PhD student at JHU) have to be mentioned, as they contributed to this package in many ways. Both through programming related advise, as well as through tips and ideas on the engineering side of the spectrum. Thanks!
 
 
 ---- Example Scripts ---------------------------------------------------------
@@ -115,9 +100,22 @@ As stated, this package contains a few example scripts. These scripts are:
 
 ---- Requirements ------------------------------------------------------------
 
-This Matlab package is designed in such a way that it does not need any other software except for Matlab. Furthermore, this Matlab code is cross OS friendly. It has been tested on Windows 7 and XP, as well as a few popular Linux distributions ad Mac OSX 10.6.8. Without any guaranties, we are certain that this package should run perfectly on almost any operating system that has Matlab installed.
+This Matlab package is designed in such a way that it does not need any other
+software except for Matlab and the Turbmat library. The Turbmat library, just
+like this package, can be obtained from the JHU Turbulence Database Cluster
+website at http://turbulence.pha.jhu.edu.
 
-For requesting very large datasets, a proper CPU and sufficient memory is recommended. When retrieving large amounts of data from the database, depending on your OS, Java might reach its max heap memory space. If your system can handle it, you can increase the heap memory limit. See http://www.mathworks.com/support/solutions/en/data/1-18I2C/.
+Furthermore, this Matlab package is cross operating system (OS) friendly. It
+has been tested on Windows 7 and XP, as well as a few popular Linux
+distributions ad Mac OSX 10.6.8. Without any guaranties, we are certain that
+this package should run perfectly on almost any operating system that has a
+working copy of Matlab installed.
+
+For requesting very large datasets, a proper CPU and sufficient memory is
+recommended. When retrieving large amounts of data from the database,
+depending on your OS, Java might reach its max heap memory space. If your
+system can handle it, you can increase the heap memory limit. See
+http://www.mathworks.com/support/solutions/en/data/1-18I2C/.
 
 
 ---- Authentication Token ----------------------------------------------------
@@ -127,19 +125,24 @@ using the service, and how. To this end, we would like each user or site to
 obtain an authorization token from us:
 http://turbulence.pha.jhu.edu/help/authtoken.html
 
-If you are just experimenting, the default token included in lib/TurbTools.m
-should be sufficient. It has a max number of points limit of 2^12 = 4069
+If you are just experimenting, the default token included in TurbTools.m
+should be sufficient. This token has a max query threshold of 2^12 = 4069
 points.
 
 ---- Getting Started ---------------------------------------------------------
 
-  * A short step-by-step manual to get started using Turbmat:
+A short step-by-step manual to get started using Turbmat Tools:
 
   * Download and unpack Turbmat on your hard disk.
+  
+  * Download Turbmat Tools. Extract the files in the package in the same
+    locations as where you have unpacked Turbmat. The scripts in Turbmat Tools
+    are required to have access to the Turbmat function wrappers.
 
-  * Be sure to insert your own authentication token in lib/TurbTools.m. If you
-    do not have one, read the "Authentication Token" chapter in this README,
-    or just use the default testing token.
+  * If you are in possession of an authentication token, you can create a file
+    called "authtoken.txt" in the same directory as TurbTools.m resides in.
+    This will override the default key. More info in the "Authentication
+    Token" of this file.
 
   * Fire up Matlab
 
@@ -148,11 +151,11 @@ points.
   * Hit the Run button. Matlab may ask you to change its working directory. If
     so, click "Change Folder".
 
-  * Turbmat will now ask you to flush cache. It will always do this before
-    running anything. Hit No.
+  * Turbmat Tools will now ask you to flush cache. It will always do this
+    before running anything. Hit No.
 
-  * Turbmat will ask you some parameters for creating a vector map of a 2D
-    surface. Enter whatever you like.
+  * Turbmat Tools will ask you some parameters for creating a vector map of a
+    2D surface. Enter whatever you like.
 
   * After loading the data from the database, your requested surface will be
     presented.
@@ -163,7 +166,7 @@ points.
 ---- Useful Turbulence Database and DNS Properties ---------------------------
 
 For an extended overview of how the JHU Turbulence Database Cluster has been
-created, and for specifications on the DNS code, please see the published
+created and for specifications on the DNS code, please see the published
 Journal of Turbulence article, Vol. 9 No 31 (2008), by Yi Li et al.
 
 In this article, Yi Li presents a helpful list of DNS parameters in the turbulence database:
@@ -184,16 +187,16 @@ In this article, Yi Li presents a helpful list of DNS parameters in the turbulen
 
 ---- License -----------------------------------------------------------------
 
-This file is part of Turbmat.
+This file is part of Turbmat Tools.
 
-Turbmat is free software: you can redistribute it and/or modify it under the
-terms of the GNU General Public License as published by the Free Software
+Turbmat Tools is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
 Foundation, either version 3 of the License, or (at your option) any later
 version.
 
-Turbmat is distributed in the hope that it will be useful, but WITHOUT ANY
-WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
-A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+Turbmat Tools is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with
 Turbmat. If not, see <http://www.gnu.org/licenses/>.

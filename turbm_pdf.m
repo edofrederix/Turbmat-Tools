@@ -39,7 +39,6 @@ clear all;
 close all;
 beep off;
 clc;
-addpath('lib');
 
 TT = TurbTools(0);
 

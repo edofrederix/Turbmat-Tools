@@ -1,5 +1,6 @@
-# Cache files
+# Package files
 cachedata/*.cache
+authtoken.txt
 
 # Matlab autosave files
 *.m~
