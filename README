@@ -1,4 +1,5 @@
-Turbmat-Tools - a Matlab library for the JHU Turbulence Database Cluster
+Turbmat-Tools - a Matlab library for querying, processing and visualizing data
+from the JHU Turbulence Database.
 See the end of the file for license conditions.
 
 Written by:
