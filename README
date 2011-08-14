@@ -107,10 +107,10 @@ As stated, this package contains a few example scripts. These scripts are:
 
 ---- Requirements ------------------------------------------------------------
 
-This Matlab package is designed in such a way that it does not need any other
-software except for Matlab and the Turbmat library. The Turbmat library, just
-like this package, can be obtained from the JHU Turbulence Database Cluster
-website at http://turbulence.pha.jhu.edu.
+Turbmat-Tools depends on the Turbmat library package. The Turbmat library,
+just like this package, can be obtained from the JHU Turbulence Database
+Cluster website at http://turbulence.pha.jhu.edu. Read the Getting Started
+section in this README file for installation notes.
 
 Furthermore, this Matlab package is cross operating system (OS) friendly. It
 has been tested on Windows 7 and XP, as well as a few popular Linux
