@@ -1,4 +1,4 @@
-Turbmat Tools - a Matlab library for the JHU Turbulence Database Cluster
+Turbmat-Tools - a Matlab library for the JHU Turbulence Database Cluster
 See the end of the file for license conditions.
 
 Written by:
@@ -10,26 +10,28 @@ edofrederix@jhu.edu, edofrederix@gmail.com
 
 ---- Summary -----------------------------------------------------------------
 
-Turbmat Tools is a Matlab package with ready-to-use scripts that make use of
-the Turbmat package. The Turbmat package ais a Matlab library for the JHU
-Turbulence Database Cluster. Turbmat provides a wrapper around Matlab's
-intrinsic web service functions for calling the JHU Turbulence Database
-Cluster. This package, called "Turbmat Tools", makes use of this Turbmat
+Turbmat-Tools is a Matlab package with six ready-to-use scripts that make use
+of the Turbmat package to fetch, process and visualize data from the Johns
+Hopkins Turbulence Database Cluster. The Turbmat package is a Matlab library
+for the JHU Turbulence Database Cluster. Turbmat provides a wrapper around
+Matlab's intrinsic web service functions for calling the JHU Turbulence
+Database Cluster. This package, called Turbmat-Tools, makes use of the Turbmat
 library, to connect to the turbulence database.
 
-This package comes with six ready-to-use example scripts for performing
+Turbmat-Tools comes with six ready-to-use example scripts for performing
 requests on the JHU Turbulence Database. These scripts do not require any
-modification. All input data is required from the user by visual input boxes.
+modification. All input data is obtained from the user by GUI input boxes.
 
 All six scripts make use of the TurbTools class. This class, purposefully
-developed for Turbmat Tools, contains a large set of useful functions to
+developed for Turbmat-Tools, contains a large set of useful functions to
 request, parse and visualize data from the database.
 
 To increase the performance of this package, there has been implemented local
 caching functionality. This is accomplished by creating an extra layer between
 the Matlab code and the database, called TurbCache. The TurbCache class stores
 requests in a uniquely named cache file, and tries to retrieve a request
-straight from this cache file if possible.
+straight from this cache file if possible. This then avoids the necesity of a
+direct expensive request on the Turbulence Database.
 
 
 ---- Credits -----------------------------------------------------------------
@@ -45,7 +47,11 @@ This package is shipped under the terms of the GNU General Public License
 version 3 or any later version. A copy of the GNU GPL v3 resides in this
 package. A more formal statement can be found at the bottom of this file.
 
-As a sign of appreciation, the names of Charles Meneveau (professor at JHU) and Jason Graham (PhD student at JHU) have to be mentioned, as they contributed to this package in many ways. Both through programming related advise, as well as through tips and ideas on the engineering side of the spectrum. Thanks!
+As a sign of appreciation, the names of Charles Meneveau (professor at JHU)
+and Jason Graham (PhD student at JHU) have to be mentioned, as they
+contributed to this package in many ways. Both through programming related
+advise, as well as through tips and ideas on the engineering side of the
+spectrum. Thanks!
 
 
 ---- Example Scripts ---------------------------------------------------------
@@ -131,18 +137,19 @@ points.
 
 ---- Getting Started ---------------------------------------------------------
 
-A short step-by-step manual to get started using Turbmat Tools:
+A short step-by-step manual to get started using Turbmat-Tools:
 
-  * Download and unpack Turbmat on your hard disk.
+  * Download and unpack Turbmat on your hard disk. You can find Turbmat on the
+    JHU Turbulence website: http://turbulence.pha.jhu.edu/.
   
-  * Download Turbmat Tools. Extract the files in the package in the same
-    locations as where you have unpacked Turbmat. The scripts in Turbmat Tools
+  * Download Turbmat-Tools. Extract the files in the package in the same
+    locations as where you have unpacked Turbmat. The scripts in Turbmat-Tools
     are required to have access to the Turbmat function wrappers.
 
-  * If you are in possession of an authentication token, you can create a file
+  * If you are in possession of an authentication token, you may create a file
     called "authtoken.txt" in the same directory as TurbTools.m resides in.
     This will override the default key. More info in the "Authentication
-    Token" of this file.
+    Token" section of this README file.
 
   * Fire up Matlab
 
@@ -151,10 +158,10 @@ A short step-by-step manual to get started using Turbmat Tools:
   * Hit the Run button. Matlab may ask you to change its working directory. If
     so, click "Change Folder".
 
-  * Turbmat Tools will now ask you to flush cache. It will always do this
+  * Turbmat-Tools will now ask you to flush cache. It will always do this
     before running anything. Hit No.
 
-  * Turbmat Tools will ask you some parameters for creating a vector map of a
+  * Turbmat-Tools will ask you some parameters for creating a vector map of a
     2D surface. Enter whatever you like.
 
   * After loading the data from the database, your requested surface will be
@@ -169,7 +176,8 @@ For an extended overview of how the JHU Turbulence Database Cluster has been
 created and for specifications on the DNS code, please see the published
 Journal of Turbulence article, Vol. 9 No 31 (2008), by Yi Li et al.
 
-In this article, Yi Li presents a helpful list of DNS parameters in the turbulence database:
+In this article, Yi Li presents a helpful list of DNS parameters in the
+turbulence database:
 
   * Grid resolution, N: 1024
   * Viscosity, nu: 0.000185
@@ -188,14 +196,14 @@ In this article, Yi Li presents a helpful list of DNS parameters in the turbulen
 
 ---- License -----------------------------------------------------------------
 
-This file is part of Turbmat Tools.
+This file is part of Turbmat-Tools.
 
-Turbmat Tools is free software: you can redistribute it and/or modify it under
+Turbmat-Tools is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
 Foundation, either version 3 of the License, or (at your option) any later
 version.
 
-Turbmat Tools is distributed in the hope that it will be useful, but WITHOUT
+Turbmat-Tools is distributed in the hope that it will be useful, but WITHOUT
 ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
 FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
