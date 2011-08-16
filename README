@@ -139,13 +139,26 @@ points.
 ---- Getting Started ---------------------------------------------------------
 
 A short step-by-step manual to get started using Turbmat-Tools:
-
-  * Download and unpack Turbmat on your hard disk. You can find Turbmat on the
-    JHU Turbulence website: http://turbulence.pha.jhu.edu/.
   
-  * Download Turbmat-Tools. Extract the files in the package in the same
-    locations as where you have unpacked Turbmat. The scripts in Turbmat-Tools
-    are required to have access to the Turbmat function wrappers.
+  * Download Turbmat-Tools. Extract the package to a location of your own
+    preference.
+    
+  * Turbmat-Tools depends on Turbmat. Download Turbmat from the JHU Turbulence
+    website: http://turbulence.pha.jhu.edu/. Extract the package inside the
+    Turbmat-Tools path. Turbmat-Tools will automatically try to detect the
+    location of Turbmat. For example, a valid installation of Turbmat and
+    Turbmat-Tools on Linux, Unix or Mac would look like:
+    
+      Turbmat-Tools: /home/user/Turbmat-Tools-.../ 
+      Turbmat: /home/user/Turbmat-Tools-<version>/Turbmat-.../
+    
+    And for Windows:
+    
+      Turbmat-Tools: c:\Users\user\Documents\Turbmat-Tools-...\ 
+      Turbmat: c:\Users\user\Documents\Turbmat-Tools-<version>\Turbmat-...\
+    
+    Make sure that Turbmat is inside Turbmat-Tools. You may leave version
+    numbers in the directory name of both Turbmat and Turbmat-Tools.
 
   * If you are in possession of an authentication token, you may create a file
     called "authtoken.txt" in the same directory as TurbTools.m resides in.
@@ -157,7 +170,8 @@ A short step-by-step manual to get started using Turbmat-Tools:
   * Open turbm_velocity2D.m with Matlab.
 
   * Hit the Run button. Matlab may ask you to change its working directory. If
-    so, click "Change Folder".
+    so, click "Change Folder". If Turbmat-Tools cannot find Turbmat, it will
+    throw an error.
 
   * Turbmat-Tools will now ask you to flush cache. It will always do this
     before running anything. Hit No.
