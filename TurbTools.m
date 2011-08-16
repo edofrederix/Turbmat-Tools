@@ -314,9 +314,15 @@ classdef TurbTools < handle
             
             m_spacing = zeros(1, ndim);
             for i = 1:ndim
-                % always linearly distribute nmax points over the direction
-                m_spacing(i) = PT.SPACING * (m_nPoints(i)-1) / (nmax-1);
-                m_nQueryPoints(i) = nmax;                
+                if m_nPoints(i) > nmax
+                    % Use nmax points
+                    m_spacing(i) = PT.SPACING * (m_nPoints(i)-1) / (nmax-1);
+                    m_nQueryPoints(i) = nmax;
+                else
+                    % Use nPoints
+                    m_spacing(i) = PT.SPACING;
+                    m_nQueryPoints(i) = m_nPoints(i);
+                end
             end
             
             if ndim == 1
@@ -360,6 +366,10 @@ classdef TurbTools < handle
         % enabled, it checks for present cache. Else it serves the request
         % directly from the turbulence database.
         function result = callDatabase(PT, method, i_points, m_points, f_time, useCache)
+            
+            if i_points > 4096 && strcmp(PT.c_authkey, 'edu.jhu.pha.turbulence.testing-201104')
+                error('You are querying more than 4096 points with the default authentication token. This is not allowed. Please read the "Authentication Token" section in the README file.');
+            end 
 
             result = [];
             
@@ -379,12 +389,12 @@ classdef TurbTools < handle
             
             if isempty(result)
                 
-                if strcmp(method, 'getVelocity') || strcmp(method, 'getVelocityAndPressure') || strcmp(method, 'getPressure')
+                if strcmp(method, 'getVelocity') || strcmp(method, 'getVelocityAndPressure') || strcmp(method, 'getPressure') || strcmp(method, 'getForce')
                     result = dbFunc(PT.c_authkey, PT.c_dataset, f_time, PT.c_spatialInt, PT.c_temporalInt, i_points, m_points);
                     if strcmp(method, 'getPressure')
                         result(1:3,:) = [];
                     end
-                elseif strcmp(method, 'getVelocityGradient') || strcmp(method, 'getPressureHessian')
+                elseif strcmp(method, 'getVelocityGradient') || strcmp(method, 'getPressureHessian') || strcmp(method, 'getPressureGradient') || strcmp(method, 'getVelocityHessian') 
                     result = dbFunc(PT.c_authkey, PT.c_dataset, f_time, PT.c_spatialDiff, PT.c_temporalInt, i_points, m_points);
                     if strcmp(method, 'getPressureHessian')
                         %copy symmetric part
