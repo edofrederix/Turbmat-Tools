@@ -98,11 +98,28 @@ classdef TurbTools < handle
                 end
             end
             
+            % Look for Turbmat
+            if ~exist('TurbulenceService', 'file')
+                thisPath = fileparts(which('TurbTools'));
+                a = dir(thisPath);
+                set = 0;
+                for i = 1:numel(a)
+                    if a(i).isdir && ~isempty(regexpi(a(i).name, 'turbmat'))
+                        addpath(sprintf('%s/%s', thisPath, a(i).name));
+                        set = 1;
+                        break;
+                    end
+                end
+                
+                if ~set || ~exist('TurbulenceService', 'file')
+                    error('Could not find Turbmat package. Make sure to include a copy of Turbmat in the Turbmat-Tools path.');
+                end
+            end
+            
             % Start TurbCache class
             if useCache
                 PT.RC = TurbCache(PT);
-            end
-            
+            end            
         end
         
         %
