@@ -136,6 +136,12 @@ If you are just experimenting, the default token included in TurbTools.m
 should be sufficient. This token has a max query threshold of 2^12 = 4069
 points.
 
+In case you have obtained an authentication token, you may use it by creating
+a file called "authtoken.txt" and inserting your key in there. The TurbTools
+class will automatically read the contents of this file and use it as a
+replacement to the default key. Another way if using your own key is by
+editing TurbTools.m.
+
 ---- Getting Started ---------------------------------------------------------
 
 A short step-by-step manual to get started using Turbmat-Tools:
