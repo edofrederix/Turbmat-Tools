@@ -1,6 +1,7 @@
 # Package files
 cachedata/*.cache
 authtoken.txt
+Turbmat*
 
 # Matlab autosave files
 *.m~
