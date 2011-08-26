@@ -41,7 +41,7 @@ beep off;
 clc;
 
 TT = TurbTools(1);
-PT.c_spatialDiff = TT.FD4_DIFF_LAG4_INT;
+TT.c_spatialDiff = TT.FD4_DIFF_LAG4_INT;
 
 %
 % ---- Ask user input ----
