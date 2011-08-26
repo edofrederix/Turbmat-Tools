@@ -41,6 +41,7 @@ beep off;
 clc;
 
 TT = TurbTools(1);
+PT.c_spatialDiff = TT.FD4_DIFF_LAG4_INT;
 
 %
 % ---- Ask user input ----
@@ -138,7 +139,7 @@ for i_timeStep = 1:i_timeSteps
     end
 
     [m_X1 m_X2 m_X3] = TT.meshgrid(m_nQueryPoints, m_offsets, m_spacing);
-    
+
     %
     % ---- Plot isosurfaces ----
     %    
@@ -157,12 +158,12 @@ for i_timeStep = 1:i_timeSteps
     % Show isosurfaces
     hold on;
     avg = mean(ISO(ISO>0));
-    x_patch = TT.drawIsoPatch(ISO, m_X1, m_X2, m_X3, 2*avg, 5*avg, 3);
+    x_patch = TT.drawIsoPatch(ISO, m_X1, m_X2, m_X3, 2.5*avg, 6*avg, 3);
     
     % Style figure
     TT.setFigureAttributes('3d', {'x', 'y', 'z'});
-    title(sprintf('Vorticity structures in a %i^3 block at\nx = %1.3f, y = %1.3f, z = %1.3f and t = %1.4f', m_nPoints(1), m_offsets, f_time));
-    
+    title(sprintf('%s iso-surfaces', cl_options{i_vortMethod}), 'FontSize', 13, 'FontWeight', 'bold');
+
     % Process video and move to next time step
     if i_timeSteps > 1
         x_video = TT.saveVideo(x_figure, x_video);

@@ -501,7 +501,6 @@ classdef TurbTools < handle
             SSt = cat(3, multiply3dS{:});
             OOt = cat(3, multiply3dO{:});
             
-            tic
             SdS = zeros(3,3,length(S));
             OdO = zeros(3,3,length(O));
             for i = 1:3
@@ -512,7 +511,6 @@ classdef TurbTools < handle
                     end
                 end
             end
-            toc
         end
         
         % Calculate the eigenvalues of the velocity gradient. If we have
@@ -859,7 +857,7 @@ classdef TurbTools < handle
                 x = linspace(0, endpoints(1), m_nPoints(1)) + m_offsets(1);
                 y = linspace(0, endpoints(2), m_nPoints(2)) + m_offsets(2);                
                 z = linspace(0, endpoints(3), m_nPoints(3)) + m_offsets(3);   
-                [X1 X2 X3] = meshgrid(y, x, z);
+                [X1 X2 X3] = meshgrid(x, y, z);
             end            
         end        
         
@@ -874,24 +872,27 @@ classdef TurbTools < handle
         function setFigureAttributes(PT, type, cl_labels)
             
             if strcmp(type, '2d')
-                xlabel(cl_labels{1});
-                ylabel(cl_labels{2});
+                xlabel(cl_labels{1}, 'FontSize', 12, 'FontWeight', 'bold');
+                ylabel(cl_labels{2}, 'FontSize', 12, 'FontWeight', 'bold');
                 colorbar;
                 colormap(PT.c_colormap);
+                set(gca, 'TickDir', 'out', 'TickLength', [.02 .02],'XMinorTick', 'on', 'YMinorTick', 'on');
                 axis equal;
             end
             
             if strcmp(type, '3d')
-                xlabel(cl_labels{1});
-                ylabel(cl_labels{2});
-                zlabel(cl_labels{3});
+                xlabel(cl_labels{1}, 'FontSize', 12, 'FontWeight', 'bold');
+                ylabel(cl_labels{2}, 'FontSize', 12, 'FontWeight', 'bold');
+                zlabel(cl_labels{3}, 'FontSize', 12, 'FontWeight', 'bold');
                 view(3);
                 axis vis3d;
                 camlight;
                 lighting phong;
                 axis equal;
+                set(gca, 'FontSize', 11);
+                set(gca, 'TickDir', 'out', 'TickLength', [.02 .02],'XMinorTick', 'on', 'YMinorTick', 'on', 'ZMinorTick', 'on');
                 grid;
-                alpha(0.6);
+                alpha(0.7);
             end
                 
         end
@@ -987,9 +988,11 @@ classdef TurbTools < handle
                     'edgecolor', 'none');
             end
             
-            colorbar;
-            colormap 'Jet';
-            alpha(.6);
+            if npoints > 1
+                colorbar;
+                colormap 'Jet';
+                colorbar('FontSize', 12);
+            end
 
         end
         
@@ -1008,6 +1011,7 @@ classdef TurbTools < handle
                           (m_X3(end)-m_X3(1))/63];
                 
                 [m_X1n, m_X2n, m_X3n] = PT.meshgrid(m_nPoints, m_offsets, m_spacing);
+                
                 
                 scalar = interp3(m_X1, m_X2, m_X3, scalar, m_X1n, m_X2n, m_X3n, PT.ISOSURF_INTERP);
                 m_X1 = m_X1n; m_X2 = m_X2n; m_X3 = m_X3n;
