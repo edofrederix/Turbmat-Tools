@@ -533,9 +533,9 @@ classdef TurbTools < handle
                         m_results(3,:) .* m_results(3,:));
             
             mag = reshape(magv, m_nQueryPoints);
-            u = reshape(m_results(1,:), m_nQueryPoints);
-            v = reshape(m_results(2,:), m_nQueryPoints);
-            w = reshape(m_results(3,:), m_nQueryPoints);
+            u = transpose(reshape(m_results(1,:), m_nQueryPoints));
+            v = transpose(reshape(m_results(2,:), m_nQueryPoints));
+            w = transpose(reshape(m_results(3,:), m_nQueryPoints));
         end
         
         % This function grabs the velocity components and subtracts the
