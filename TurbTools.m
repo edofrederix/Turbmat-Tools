@@ -367,9 +367,17 @@ classdef TurbTools < handle
         % directly from the turbulence database.
         function result = callDatabase(PT, method, i_points, m_points, f_time, useCache)
             
-            if i_points > 4096 && strcmp(PT.c_authkey, 'edu.jhu.pha.turbulence.testing-201104')
-                error('You are querying more than 4096 points with the default authentication token. This is not allowed. Please read the "Authentication Token" section in the README file.');
-            end 
+            if i_points > 4096 && ~isempty(regexp(PT.c_authkey, 'edu\.jhu\.pha\.turbulence\.testing', 'once'))
+
+                cl_questions = {'You are querying more than 4096 points. Please use a different authentication token.'};
+                cl_defaults = {PT.c_authkey};
+                c_timeOffset = PT.askInput(cl_questions, cl_defaults);
+                PT.c_authkey = PT.checkChar(c_timeOffset, 'char', '^edu\.jhu');
+
+                if ~isempty(regexp(PT.c_authkey, 'edu\.jhu\.pha\.turbulence\.testing', 'once'))
+                    error(cl_questions{1});
+                end
+            end
 
             result = [];
             
