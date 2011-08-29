@@ -369,7 +369,7 @@ classdef TurbTools < handle
             
             if i_points > 4096 && ~isempty(regexp(PT.c_authkey, 'edu\.jhu\.pha\.turbulence\.testing', 'once'))
 
-                cl_questions = {'You are querying more than 4096 points. Please use a different authentication token.'};
+                cl_questions = {'You are querying more than 4096 points. Please use a different authentication token. Consult the README for more information.'};
                 cl_defaults = {PT.c_authkey};
                 c_timeOffset = PT.askInput(cl_questions, cl_defaults);
                 PT.c_authkey = PT.checkChar(c_timeOffset, 'char', '^edu\.jhu');

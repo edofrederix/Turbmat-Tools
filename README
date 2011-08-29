@@ -139,8 +139,14 @@ points.
 In case you have obtained an authentication token, you may use it by creating
 a file called "authtoken.txt" and inserting your key in there. The TurbTools
 class will automatically read the contents of this file and use it as a
-replacement to the default key. Another way if using your own key is by
+replacement to the default key. Another way of using your own key is by
 editing TurbTools.m.
+
+Turbmat-Tools will automatically detect the use of a testing key. If more than
+4096 points are queried, and only a testing key is provided, Turbmat-Tools
+will ask the user to insert a valid authentication token. Once again, you may
+obtain a token for us at: http://turbulence.pha.jhu.edu/help/authtoken.html.
+
 
 ---- Getting Started ---------------------------------------------------------
 
