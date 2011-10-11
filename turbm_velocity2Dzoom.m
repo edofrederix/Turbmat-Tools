@@ -1,34 +1,35 @@
 %
-% Turbmat - a Matlab library for the JHU Turbulence Database Cluster
+% Turbmat-Tools - a Matlab library for querying, processing and visualizing
+% data from the JHU Turbulence Database
 %   
-% 2D Velocity Zoom, part of Turbmat
+% TurbCache, part of Turbmat-Tools
 %
 
 %
 % Written by:
 % 
-% Edo Frederix
-% The Johns Hopkins University / Eindhoven University of Technology
-% Department of Mechanical Engineering
-% edofrederix@jhu.edu, edofrederix@gmail.com
+% Edo Frederix The Johns Hopkins University / Eindhoven University of
+% Technology Department of Mechanical Engineering edofrederix@jhu.edu,
+% edofrederix@gmail.com
 %
 
 %
-% This file is part of Turbmat.
+% This file is part of Turbmat-Tools.
 % 
-% Turbmat is free software: you can redistribute it and/or modify it under
-% the terms of the GNU General Public License as published by the Free
-% Software Foundation, either version 3 of the License, or (at your option)
-% any later version.
+% Turbmat-Tools is free software: you can redistribute it and/or modify it
+% under the terms of the GNU General Public License as published by the
+% Free Software Foundation, either version 3 of the License, or (at your
+% option) any later version.
 % 
-% Turbmat is distributed in the hope that it will be useful, but WITHOUT
-% ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-% FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-% more details.
+% Turbmat-Tools is distributed in the hope that it will be useful, but
+% WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+% Public License for more details.
 % 
 % You should have received a copy of the GNU General Public License along
-% with Turbmat.  If not, see <http://www.gnu.org/licenses/>.
+% with Turbmat-Tools.  If not, see <http://www.gnu.org/licenses/>.
 %
+
 
 %
 % ---- Initiate ----
@@ -131,13 +132,13 @@ for i_step = 1:length(m_frameWidth)
     
     % Write title
     if i_step == 1
-        title(x_subplot, sprintf('Velocity vector maps on %c-%c plane, at %c=%1.3f, t=%1.3f.\n Colormap indicates %c-component velocity.', c_directions, m_offsets(3), f_time, c_surfDirection));        
+        title(x_subplot, sprintf('Velocity vector maps on %c-%c plane, at %c=%1.3f, t=%1.3f.\n Colormap indicates %c-component velocity.', c_directions, m_offsets(3), f_time, c_surfDirection), 'FontSize', 12, 'FontWeight', 'bold');        
     elseif i_step == 2
-        title(x_subplot, 'Detail 1 (rectangle in top left image)');
+        title(x_subplot, 'Detail 1 (rectangle in top left image)', 'FontSize', 12, 'FontWeight', 'bold');
     elseif i_step == 3
-        title(x_subplot, 'Detail 2 (rectangle in top right image)');
+        title(x_subplot, 'Detail 2 (rectangle in top right image)', 'FontSize', 12, 'FontWeight', 'bold');
     elseif i_step == 4
-        title(x_subplot, 'Detail 3 (rectangle in bottom left image)');
+        title(x_subplot, 'Detail 3 (rectangle in bottom left image)', 'FontSize', 12, 'FontWeight', 'bold');
     end
 
 end

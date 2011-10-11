@@ -1,33 +1,33 @@
 %
-% Turbmat - a Matlab library for the JHU Turbulence Database Cluster
+% Turbmat-Tools - a Matlab library for querying, processing and visualizing
+% data from the JHU Turbulence Database
 %   
-% PDF, part of Turbmat
+% TurbCache, part of Turbmat-Tools
 %
 
 %
 % Written by:
 % 
-% Edo Frederix
-% The Johns Hopkins University / Eindhoven University of Technology
-% Department of Mechanical Engineering
-% edofrederix@jhu.edu, edofrederix@gmail.com
+% Edo Frederix The Johns Hopkins University / Eindhoven University of
+% Technology Department of Mechanical Engineering edofrederix@jhu.edu,
+% edofrederix@gmail.com
 %
 
 %
-% This file is part of Turbmat.
+% This file is part of Turbmat-Tools.
 % 
-% Turbmat is free software: you can redistribute it and/or modify it under
-% the terms of the GNU General Public License as published by the Free
-% Software Foundation, either version 3 of the License, or (at your option)
-% any later version.
+% Turbmat-Tools is free software: you can redistribute it and/or modify it
+% under the terms of the GNU General Public License as published by the
+% Free Software Foundation, either version 3 of the License, or (at your
+% option) any later version.
 % 
-% Turbmat is distributed in the hope that it will be useful, but WITHOUT
-% ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-% FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-% more details.
+% Turbmat-Tools is distributed in the hope that it will be useful, but
+% WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+% Public License for more details.
 % 
 % You should have received a copy of the GNU General Public License along
-% with Turbmat.  If not, see <http://www.gnu.org/licenses/>.
+% with Turbmat-Tools.  If not, see <http://www.gnu.org/licenses/>.
 %
 
 
@@ -111,10 +111,11 @@ end
 
 % Style figure
 grid;
-ylabel('Pdf(v_i)');
-if i_nondim; xlabel('v_i/{\sigma_{v_i}}'); else xlabel('V_i'); end
+ylabel('Pdf(v_i)', 'FontSize', 12, 'FontWeight', 'bold');
+if i_nondim; xlabel('v_i/{\sigma_{v_i}}', 'FontSize', 12, 'FontWeight', 'bold'); else xlabel('V_i', 'FontSize', 12, 'FontWeight', 'bold'); end
 legend([x_bar, x_plot(1)], 'v_x', 'v_y', 'v_z', 'outline');
-title(sprintf('PDF of velocity components in %i^3 cube', i_cubeWidth));
+title(sprintf('PDF of velocity in {%3i}^3 cube', i_cubeWidth), 'FontSize', 12, 'FontWeight', 'bold');
+set(gca, 'TickDir', 'out', 'TickLength', [.02 .02],'XMinorTick', 'on', 'YMinorTick', 'on');
 
 %
 % ---- Calculate Pressure PDF ----
@@ -131,9 +132,11 @@ plot(x, PDF, 'Color', m_colors(1,:), 'LineWidth', 1.3);
 
 % Style figure
 grid;
-ylabel('Pdf(p)');
-if i_nondim; xlabel('p/{\sigma_{p}}'); else xlabel('p'); end
-title(sprintf('PDF of pressure\nMean set to zero (real mean = %1.4f)', avg));
+ylabel('Pdf(p)', 'FontSize', 12, 'FontWeight', 'bold');
+if i_nondim; xlabel('p/{\sigma_{p}}', 'FontSize', 12, 'FontWeight', 'bold'); else xlabel('p', 'FontSize', 12, 'FontWeight', 'bold'); end
+title(sprintf('PDF of pressure\nMean set to zero (real mean = %1.4f)', avg), 'FontSize', 12, 'FontWeight', 'bold');
+set(gca, 'TickDir', 'out', 'TickLength', [.02 .02],'XMinorTick', 'on', 'YMinorTick', 'on');
+TT.makeFigureSquare(x_figure);
 
 %
 % --- Calculate Velocity Gradient PDF ---
@@ -157,7 +160,9 @@ plot(m_tv, log10(m_tvGradPDF), 'r.', 'LineWidth', 1.3);
 
 % Style figure
 grid;
-ylabel('log(Pdf(g_{i,j}))');
-if i_nondim; xlabel('{g_{i,j}}/{\sigma_{g_{i,j}}}'); else xlabel('{g_{i,j}}'); end
-legend('Longitudinal g_{i,i}', 'Transverse g_{i,j}, i <> j', 'Location', 'NorthWest');
-title('Logarithmic PDF of velocity gradients g_{i,j} = {\delta}v_i/{\delta}x_j');
+ylabel('Pdf(J_{i,j})', 'FontSize', 12, 'FontWeight', 'bold');
+if i_nondim; xlabel('{J_{i,j}}/{\sigma_{J_{i,j}}}', 'FontSize', 12, 'FontWeight', 'bold'); else xlabel('{J_{i,j}}', 'FontSize', 12, 'FontWeight', 'bold'); end
+legend('Longitudinal J_{i,i}', 'Transverse J_{i,j}, i <> j', 'Location', 'NorthWest');
+title('PDF of J_{i,j} = {\delta}v_i/{\delta}x_j', 'FontSize', 12, 'FontWeight', 'bold');
+set(gca, 'TickDir', 'out', 'TickLength', [.02 .02],'XMinorTick', 'on', 'YMinorTick', 'on');
+TT.makeFigureSquare(x_figure);

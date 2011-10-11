@@ -1,33 +1,33 @@
 %
-% Turbmat - a Matlab library for the JHU Turbulence Database Cluster
+% Turbmat-Tools - a Matlab library for querying, processing and visualizing
+% data from the JHU Turbulence Database
 %   
-% 1D Spectra, part of Turbmat
+% TurbCache, part of Turbmat-Tools
 %
 
 %
 % Written by:
 % 
-% Edo Frederix
-% The Johns Hopkins University / Eindhoven University of Technology
-% Department of Mechanical Engineering
-% edofrederix@jhu.edu, edofrederix@gmail.com
+% Edo Frederix The Johns Hopkins University / Eindhoven University of
+% Technology Department of Mechanical Engineering edofrederix@jhu.edu,
+% edofrederix@gmail.com
 %
 
 %
-% This file is part of Turbmat.
+% This file is part of Turbmat-Tools.
 % 
-% Turbmat is free software: you can redistribute it and/or modify it under
-% the terms of the GNU General Public License as published by the Free
-% Software Foundation, either version 3 of the License, or (at your option)
-% any later version.
+% Turbmat-Tools is free software: you can redistribute it and/or modify it
+% under the terms of the GNU General Public License as published by the
+% Free Software Foundation, either version 3 of the License, or (at your
+% option) any later version.
 % 
-% Turbmat is distributed in the hope that it will be useful, but WITHOUT
-% ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-% FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-% more details.
+% Turbmat-Tools is distributed in the hope that it will be useful, but
+% WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+% Public License for more details.
 % 
 % You should have received a copy of the GNU General Public License along
-% with Turbmat.  If not, see <http://www.gnu.org/licenses/>.
+% with Turbmat-Tools.  If not, see <http://www.gnu.org/licenses/>.
 %
 
 
@@ -100,9 +100,8 @@ end
 
 % Style figure
 grid;
-title(sprintf('Inline velocity for %i random lines', i_lines));
-ylabel('v');
-xlabel('x');
+title(sprintf('Inline velocity for %i random lines', i_lines), 'FontSize', 12, 'FontWeight', 'bold');
+TT.setFigureAttributes('2d', {'x_a', 'v_a'});
 
 %
 % ---- Plot random lines in space ----
@@ -116,7 +115,7 @@ for i = 1:numel(keys);
     hold on;
 end
 
-title(sprintf('Random chosen lines in domain at t=%1.3f', f_time));
+title(sprintf('Randomly chosen lines in domain at t=%1.3f', f_time), 'FontSize', 12, 'FontWeight', 'bold');
 TT.setFigureAttributes('3d', {'x', 'y', 'z'});
 
 %
@@ -125,7 +124,7 @@ TT.setFigureAttributes('3d', {'x', 'y', 'z'});
 
 [kEta E] = TT.scaleEnergySpectrum(k(1:n/2+1), pwr(1:n/2+1));
 
-subplot(2,2,[2 4]);
+%subplot(2,2,[2 4]);
 x_plot = loglog(kEta, E/1024);
 
 set(x_plot, 'Color', 'r', 'LineWidth', 1.3);
@@ -138,6 +137,7 @@ plot(kEta2, EIS, 'b', 'LineWidth', 1.6);
 % Style figure
 grid;
 text(kEta2(20)*2, EIS(20)*2, 'E_{11} = (18/55) * 1.6 * (k*\eta)^{-5/3}');
-title('Power spectrum');
-ylabel('E_{11}/(\epsilon*\nu^5)^{1/4}');
-xlabel('k*\eta');
+title('Power spectrum', 'FontSize', 12, 'FontWeight', 'bold');
+ylabel('E_{11}/(\epsilon*\nu^5)^{1/4}', 'FontSize', 12, 'FontWeight', 'bold');
+xlabel('k*\eta', 'FontSize', 12, 'FontWeight', 'bold');
+set(gca, 'TickDir', 'out', 'TickLength', [.02 .02],'XMinorTick', 'on', 'YMinorTick', 'on');

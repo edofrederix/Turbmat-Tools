@@ -1,33 +1,33 @@
 %
-% Turbmat - a Matlab library for the JHU Turbulence Database Cluster
+% Turbmat-Tools - a Matlab library for querying, processing and visualizing
+% data from the JHU Turbulence Database
 %   
-% 3D Vorticity, part of Turbmat
+% TurbCache, part of Turbmat-Tools
 %
 
 %
 % Written by:
 % 
-% Edo Frederix
-% The Johns Hopkins University / Eindhoven University of Technology
-% Department of Mechanical Engineering
-% edofrederix@jhu.edu, edofrederix@gmail.com
+% Edo Frederix The Johns Hopkins University / Eindhoven University of
+% Technology Department of Mechanical Engineering edofrederix@jhu.edu,
+% edofrederix@gmail.com
 %
 
 %
-% This file is part of Turbmat.
+% This file is part of Turbmat-Tools.
 % 
-% Turbmat is free software: you can redistribute it and/or modify it under
-% the terms of the GNU General Public License as published by the Free
-% Software Foundation, either version 3 of the License, or (at your option)
-% any later version.
+% Turbmat-Tools is free software: you can redistribute it and/or modify it
+% under the terms of the GNU General Public License as published by the
+% Free Software Foundation, either version 3 of the License, or (at your
+% option) any later version.
 % 
-% Turbmat is distributed in the hope that it will be useful, but WITHOUT
-% ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-% FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-% more details.
+% Turbmat-Tools is distributed in the hope that it will be useful, but
+% WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+% Public License for more details.
 % 
 % You should have received a copy of the GNU General Public License along
-% with Turbmat.  If not, see <http://www.gnu.org/licenses/>.
+% with Turbmat-Tools.  If not, see <http://www.gnu.org/licenses/>.
 %
 
 
@@ -41,6 +41,7 @@ beep off;
 clc;
 
 TT = TurbTools(1);
+TT.c_spatialDiff = TT.FD4_DIFF_LAG4_INT;
 
 %
 % ---- Ask user input ----
@@ -138,7 +139,7 @@ for i_timeStep = 1:i_timeSteps
     end
 
     [m_X1 m_X2 m_X3] = TT.meshgrid(m_nQueryPoints, m_offsets, m_spacing);
-    
+
     %
     % ---- Plot isosurfaces ----
     %    
@@ -157,12 +158,13 @@ for i_timeStep = 1:i_timeSteps
     % Show isosurfaces
     hold on;
     avg = mean(ISO(ISO>0));
-    x_patch = TT.drawIsoPatch(ISO, m_X1, m_X2, m_X3, 2*avg, 5*avg, 3);
+    x_patch = TT.drawIsoPatch(ISO, m_X1, m_X2, m_X3, 2.5*avg, 6*avg, 3);
     
     % Style figure
     TT.setFigureAttributes('3d', {'x', 'y', 'z'});
-    title(sprintf('Vorticity structures in a %i^3 block at\nx = %1.3f, y = %1.3f, z = %1.3f and t = %1.4f', m_nPoints(1), m_offsets, f_time));
-    
+    title(sprintf('%s iso-surfaces', cl_options{i_vortMethod}), 'FontSize', 13, 'FontWeight', 'bold');
+    TT.makeFigureSquare(x_figure);
+
     % Process video and move to next time step
     if i_timeSteps > 1
         x_video = TT.saveVideo(x_figure, x_video);

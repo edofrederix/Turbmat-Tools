@@ -1,33 +1,33 @@
 %
-% Turbmat - a Matlab library for the JHU Turbulence Database Cluster
+% Turbmat-Tools - a Matlab library for querying, processing and visualizing
+% data from the JHU Turbulence Database
 %   
-% TurbTools, part of Turbmat
+% TurbCache, part of Turbmat-Tools
 %
 
 %
 % Written by:
 % 
-% Edo Frederix
-% The Johns Hopkins University / Eindhoven University of Technology
-% Department of Mechanical Engineering
-% edofrederix@jhu.edu, edofrederix@gmail.com
+% Edo Frederix The Johns Hopkins University / Eindhoven University of
+% Technology Department of Mechanical Engineering edofrederix@jhu.edu,
+% edofrederix@gmail.com
 %
 
 %
-% This file is part of Turbmat.
+% This file is part of Turbmat-Tools.
 % 
-% Turbmat is free software: you can redistribute it and/or modify it under
-% the terms of the GNU General Public License as published by the Free
-% Software Foundation, either version 3 of the License, or (at your option)
-% any later version.
+% Turbmat-Tools is free software: you can redistribute it and/or modify it
+% under the terms of the GNU General Public License as published by the
+% Free Software Foundation, either version 3 of the License, or (at your
+% option) any later version.
 % 
-% Turbmat is distributed in the hope that it will be useful, but WITHOUT
-% ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-% FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-% more details.
+% Turbmat-Tools is distributed in the hope that it will be useful, but
+% WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+% Public License for more details.
 % 
 % You should have received a copy of the GNU General Public License along
-% with Turbmat.  If not, see <http://www.gnu.org/licenses/>.
+% with Turbmat-Tools.  If not, see <http://www.gnu.org/licenses/>.
 %
 
 classdef TurbTools < handle
@@ -98,11 +98,28 @@ classdef TurbTools < handle
                 end
             end
             
+            % Look for Turbmat
+            if ~exist('TurbulenceService', 'file')
+                thisPath = fileparts(which('TurbTools'));
+                a = dir(thisPath);
+                set = 0;
+                for i = 1:numel(a)
+                    if a(i).isdir && ~isempty(regexpi(a(i).name, 'turbmat'))
+                        addpath(sprintf('%s/%s', thisPath, a(i).name));
+                        set = 1;
+                        break;
+                    end
+                end
+                
+                if ~set || ~exist('TurbulenceService', 'file')
+                    error('Could not find Turbmat package. Make sure to include a copy of Turbmat in the Turbmat-Tools path.');
+                end
+            end
+            
             % Start TurbCache class
             if useCache
                 PT.RC = TurbCache(PT);
-            end
-            
+            end            
         end
         
         %
@@ -256,6 +273,40 @@ classdef TurbTools < handle
                 result(i) = result(i-1)*fac;
             end
         end
+        
+        % We have received the number of physical points we want to query.
+        % This may be too much. In that case we need to ditribute the
+        % number of max allowed points evenly over that direction. This
+        % function will set m_nQueryPoints (the real number of points that
+        % will be queried) and m_spacing, which contains the uniform spacing
+        % between two adjacent points in one direction
+        function [m_nQueryPoints m_spacing] = calculateQueryPoints(PT, m_nPoints)
+
+            ndim = numel(m_nPoints);
+            nmax = PT.MAX_POINTS_DIM(ndim);
+            m_nQueryPoints = zeros(1, ndim);
+            
+            m_spacing = zeros(1, ndim);
+            for i = 1:ndim
+                if m_nPoints(i) > nmax
+                    % Use nmax points
+                    m_spacing(i) = PT.SPACING * (m_nPoints(i)-1) / (nmax-1);
+                    m_nQueryPoints(i) = nmax;
+                else
+                    % Use nPoints
+                    m_spacing(i) = PT.SPACING;
+                    m_nQueryPoints(i) = m_nPoints(i);
+                end
+            end
+            
+            if ndim == 1
+                fprintf('Querying %i physical grid points with %i query points\n', m_nPoints(1), m_nQueryPoints);
+            elseif ndim == 2
+                fprintf('Querying %ix%i physical grid points with %ix%i query points\n', m_nPoints(1:2), m_nQueryPoints);
+            else
+                fprintf('Querying %ix%ix%i physical grid points with %ix%ix%i query points\n', m_nPoints(1:3), m_nQueryPoints);
+            end
+        end
                 
         %
         % ---- 2D Surface functions ----
@@ -282,34 +333,6 @@ classdef TurbTools < handle
             m_points(2,:) = reshape(repmat(ylin, m_nQueryPoints(1), 1), 1, m_nQueryPoints(1)*m_nQueryPoints(2));
             m_points(3,:) = m_offsets(3);
         end       
-        
-        % We have received the number of physical points we want to query.
-        % This may be too much. In that case we need to ditribute the
-        % number of max allowed points evenly over that direction. This
-        % function will set m_nQueryPoints (the real number of points that
-        % will be queried) and m_spacing, which contains the uniform spacing
-        % between two adjacent points in one direction
-        function [m_nQueryPoints m_spacing] = calculateQueryPoints(PT, m_nPoints)
-
-            ndim = numel(m_nPoints);
-            nmax = PT.MAX_POINTS_DIM(ndim);
-            m_nQueryPoints = zeros(1, ndim);
-            
-            m_spacing = zeros(1, ndim);
-            for i = 1:ndim
-                % always linearly distribute nmax points over the direction
-                m_spacing(i) = PT.SPACING * (m_nPoints(i)-1) / (nmax-1);
-                m_nQueryPoints(i) = nmax;                
-            end
-            
-            if ndim == 1
-                fprintf('Querying %i physical grid points with %i query points\n', m_nPoints(1), m_nQueryPoints);
-            elseif ndim == 2
-                fprintf('Querying %ix%i physical grid points with %ix%i query points\n', m_nPoints(1:2), m_nQueryPoints);
-            else
-                fprintf('Querying %ix%ix%i physical grid points with %ix%ix%i query points\n', m_nPoints(1:3), m_nQueryPoints);
-            end
-        end
         
         %
         % ---- 3D Volume functions ----
@@ -343,6 +366,18 @@ classdef TurbTools < handle
         % enabled, it checks for present cache. Else it serves the request
         % directly from the turbulence database.
         function result = callDatabase(PT, method, i_points, m_points, f_time, useCache)
+            
+            if i_points > 4096 && ~isempty(regexp(PT.c_authkey, 'edu\.jhu\.pha\.turbulence\.testing', 'once'))
+
+                cl_questions = {'You are querying more than 4096 points. Please use a different authentication token. Consult the README for more information.'};
+                cl_defaults = {PT.c_authkey};
+                c_timeOffset = PT.askInput(cl_questions, cl_defaults);
+                PT.c_authkey = PT.checkChar(c_timeOffset, 'char', '^edu\.jhu');
+
+                if ~isempty(regexp(PT.c_authkey, 'edu\.jhu\.pha\.turbulence\.testing', 'once'))
+                    error(cl_questions{1});
+                end
+            end
 
             result = [];
             
@@ -362,12 +397,12 @@ classdef TurbTools < handle
             
             if isempty(result)
                 
-                if strcmp(method, 'getVelocity') || strcmp(method, 'getVelocityAndPressure') || strcmp(method, 'getPressure')
+                if strcmp(method, 'getVelocity') || strcmp(method, 'getVelocityAndPressure') || strcmp(method, 'getPressure') || strcmp(method, 'getForce')
                     result = dbFunc(PT.c_authkey, PT.c_dataset, f_time, PT.c_spatialInt, PT.c_temporalInt, i_points, m_points);
                     if strcmp(method, 'getPressure')
                         result(1:3,:) = [];
                     end
-                elseif strcmp(method, 'getVelocityGradient') || strcmp(method, 'getPressureHessian')
+                elseif strcmp(method, 'getVelocityGradient') || strcmp(method, 'getPressureHessian') || strcmp(method, 'getPressureGradient') || strcmp(method, 'getVelocityHessian') 
                     result = dbFunc(PT.c_authkey, PT.c_dataset, f_time, PT.c_spatialDiff, PT.c_temporalInt, i_points, m_points);
                     if strcmp(method, 'getPressureHessian')
                         %copy symmetric part
@@ -474,7 +509,6 @@ classdef TurbTools < handle
             SSt = cat(3, multiply3dS{:});
             OOt = cat(3, multiply3dO{:});
             
-            tic
             SdS = zeros(3,3,length(S));
             OdO = zeros(3,3,length(O));
             for i = 1:3
@@ -485,7 +519,6 @@ classdef TurbTools < handle
                     end
                 end
             end
-            toc
         end
         
         % Calculate the eigenvalues of the velocity gradient. If we have
@@ -511,6 +544,13 @@ classdef TurbTools < handle
             u = reshape(m_results(1,:), m_nQueryPoints);
             v = reshape(m_results(2,:), m_nQueryPoints);
             w = reshape(m_results(3,:), m_nQueryPoints);
+            
+            % X-direction horizontally, Y-direction vertical
+            mag = permute(mag, [2 1 3]);
+            u = permute(u, [2 1 3]);
+            v = permute(v, [2 1 3]);
+            w = permute(w, [2 1 3]);
+                
         end
         
         % This function grabs the velocity components and subtracts the
@@ -790,9 +830,9 @@ classdef TurbTools < handle
                             % loop over different steps in direction
                             for k = 1:(size(VV, j)-incrSteps)
                                 if j == 1
-                                    df = VV(k+incrSteps, :, :) - VV(k, :, :);
-                                elseif j == 2
                                     df = VV(:, k+incrSteps, :) - VV(:, k, :);
+                                elseif j == 2
+                                    df = VV(k+incrSteps, :, :) - VV(k, :, :);
                                 else
                                     df = VV(:, :, k+incrSteps) - VV(:, :, k);
                                 end
@@ -832,7 +872,7 @@ classdef TurbTools < handle
                 x = linspace(0, endpoints(1), m_nPoints(1)) + m_offsets(1);
                 y = linspace(0, endpoints(2), m_nPoints(2)) + m_offsets(2);                
                 z = linspace(0, endpoints(3), m_nPoints(3)) + m_offsets(3);   
-                [X1 X2 X3] = meshgrid(y, x, z);
+                [X1 X2 X3] = meshgrid(x, y, z);
             end            
         end        
         
@@ -847,24 +887,27 @@ classdef TurbTools < handle
         function setFigureAttributes(PT, type, cl_labels)
             
             if strcmp(type, '2d')
-                xlabel(cl_labels{1});
-                ylabel(cl_labels{2});
+                xlabel(cl_labels{1}, 'FontSize', 12, 'FontWeight', 'bold');
+                ylabel(cl_labels{2}, 'FontSize', 12, 'FontWeight', 'bold');
                 colorbar;
                 colormap(PT.c_colormap);
+                set(gca, 'TickDir', 'out', 'TickLength', [.02 .02],'XMinorTick', 'on', 'YMinorTick', 'on');
                 axis equal;
             end
             
             if strcmp(type, '3d')
-                xlabel(cl_labels{1});
-                ylabel(cl_labels{2});
-                zlabel(cl_labels{3});
+                xlabel(cl_labels{1}, 'FontSize', 12, 'FontWeight', 'bold');
+                ylabel(cl_labels{2}, 'FontSize', 12, 'FontWeight', 'bold');
+                zlabel(cl_labels{3}, 'FontSize', 12, 'FontWeight', 'bold');
                 view(3);
                 axis vis3d;
                 camlight;
                 lighting phong;
                 axis equal;
+                set(gca, 'FontSize', 11);
+                set(gca, 'TickDir', 'out', 'TickLength', [.02 .02],'XMinorTick', 'on', 'YMinorTick', 'on', 'ZMinorTick', 'on');
                 grid;
-                alpha(0.6);
+                alpha(0.7);
             end
                 
         end
@@ -960,9 +1003,11 @@ classdef TurbTools < handle
                     'edgecolor', 'none');
             end
             
-            colorbar;
-            colormap 'Jet';
-            alpha(.6);
+            if npoints > 1
+                colorbar;
+                colormap 'Jet';
+                colorbar('FontSize', 12);
+            end
 
         end
         
@@ -981,6 +1026,7 @@ classdef TurbTools < handle
                           (m_X3(end)-m_X3(1))/63];
                 
                 [m_X1n, m_X2n, m_X3n] = PT.meshgrid(m_nPoints, m_offsets, m_spacing);
+                
                 
                 scalar = interp3(m_X1, m_X2, m_X3, scalar, m_X1n, m_X2n, m_X3n, PT.ISOSURF_INTERP);
                 m_X1 = m_X1n; m_X2 = m_X2n; m_X3 = m_X3n;
