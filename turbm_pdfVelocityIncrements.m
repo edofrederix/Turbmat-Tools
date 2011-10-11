@@ -79,7 +79,7 @@ m_randDimensions = [32 128 512];
 %
 
 f_time = TT.TIME_SPACING * i_timeOffset;
-fprintf('Querying %i %ix%ix(%i or %i)-cubes with random position and orientation\n', i_nCubes, m_randDimensions, m_randDimensions);
+fprintf('Querying %i %ix%ix%i-cubes with random position and orientation\n', i_nCubes, m_randDimensions);
 
 % Create legends
 r = TT.factorspace(f_rStart, f_rEnd, i_rSteps);
@@ -138,7 +138,7 @@ end
 % Style figure
 TT.setFigureAttributes('3d', {'x', 'y', 'z'});
 axis([0 2*pi 0 2*pi 0 2*pi]);
-title('Randomly selected cubes in domain');
+title('Randomly selected blocks', 'FontSize', 12, 'FontWeight', 'bold');
 
 %
 % ---- Calculate statistics ----
@@ -193,9 +193,10 @@ plot(s_ltPDF.(firstkey).x, s_ltPDF.(firstkey).y, 'k', 'LineWidth', 1.3);
 
 % Style figure
 grid;
-ylabel('Pdf({\delta}_{r}v)');
-xlabel('{\delta}_{r}v/{\sigma_{{\delta}_{r}v}}');
-title(strcat(sprintf('PDF of longitudinal velocity increments at r = %.2f', f_rStart/TT.KOLMOGOROV_LENGTH), ' \eta'));
+ylabel('Pdf({\delta}_{r}v)', 'FontSize', 12, 'FontWeight', 'bold');
+xlabel('{\delta}_{r}v/{\sigma_{{\delta}_{r}v}}', 'FontSize', 12, 'FontWeight', 'bold');
+title(strcat(sprintf('PDF of longitudinal velocity increments at r = %.2f', f_rStart/TT.KOLMOGOROV_LENGTH), ' \eta'), 'FontSize', 12, 'FontWeight', 'bold');
+set(gca, 'TickDir', 'out', 'TickLength', [.02 .02],'XMinorTick', 'on', 'YMinorTick', 'on');
 
 subplot(2,2,4);
 
@@ -204,9 +205,10 @@ plot(s_tvPDF.(firstkey).x, s_tvPDF.(firstkey).y, 'k', 'LineWidth', 1.3);
 
 % Style figure
 grid;
-ylabel('Pdf({\delta}_{r}v)');
-xlabel('{\delta}_{r}v/{\sigma_{{\delta}_{r}v}}');
-title(strcat(sprintf('PDF of transverse velocity increments at r = %.2f', f_rStart/TT.KOLMOGOROV_LENGTH), ' \eta'));
+ylabel('Pdf({\delta}_{r}v)', 'FontSize', 12, 'FontWeight', 'bold');
+xlabel('{\delta}_{r}v/{\sigma_{{\delta}_{r}v}}', 'FontSize', 12, 'FontWeight', 'bold');
+title(strcat(sprintf('PDF of transverse velocity increments at r = %.2f', f_rStart/TT.KOLMOGOROV_LENGTH), ' \eta'), 'FontSize', 12, 'FontWeight', 'bold');
+set(gca, 'TickDir', 'out', 'TickLength', [.02 .02],'XMinorTick', 'on', 'YMinorTick', 'on');
 
 % Create new colors
 m_colors = TT.createColors(i_rSteps);
@@ -227,10 +229,11 @@ end
 
 % Style figure
 grid;
-ylabel('log(Pdf({\delta}_{r}v))');
-xlabel('{\delta}_{r}v/{\sigma_{{\delta}_{r}v}}');
+ylabel('log(Pdf({\delta}_{r}v))', 'FontSize', 12, 'FontWeight', 'bold');
+xlabel('{\delta}_{r}v/{\sigma_{{\delta}_{r}v}}', 'FontSize', 12, 'FontWeight', 'bold');
 legend([x_plot(1) x_plot(end)], legIncr{1}, legIncr{end});
-title('Logarithmic PDF of longitudinal velocity increments');
+title('Logarithmic PDF of longitudinal velocity increments', 'FontSize', 12, 'FontWeight', 'bold');
+set(gca, 'TickDir', 'out', 'TickLength', [.02 .02],'XMinorTick', 'on', 'YMinorTick', 'on');
 
 %
 % ---- Plot log(PDF) of all transverse signals ----
@@ -246,10 +249,11 @@ end
 
 % Style figure
 grid;
-ylabel('log(Pdf({\delta}_{r}v))');
-xlabel('{\delta}_{r}v/{\sigma_{{\delta}_{r}v}}');
+ylabel('log(Pdf({\delta}_{r}v))', 'FontSize', 12, 'FontWeight', 'bold');
+xlabel('{\delta}_{r}v/{\sigma_{{\delta}_{r}v}}', 'FontSize', 12, 'FontWeight', 'bold');
 legend([x_plot(1) x_plot(end)], legIncr{1}, legIncr{end});
-title('Logarithmic PDF of transverse velocity increments');
+title('Logarithmic PDF of transverse velocity increments', 'FontSize', 12, 'FontWeight', 'bold');
+set(gca, 'TickDir', 'out', 'TickLength', [.02 .02],'XMinorTick', 'on', 'YMinorTick', 'on');
 
 %
 % ---- Plot structure function ----
@@ -274,10 +278,11 @@ x_plot(4) = loglog(rnd, yy2, 'r--', 'LineWidth', 1.3);
 
 % Style figure
 grid;
-ylabel('{{\sigma}_r}^2');
-xlabel('r/{\eta}');
+ylabel('{{\sigma}_r}^2', 'FontSize', 12, 'FontWeight', 'bold');
+xlabel('r/{\eta}', 'FontSize', 12, 'FontWeight', 'bold');
 legend(x_plot, 'Longitudinal', 'Transverse', '2.1 * {\epsilon}^{2/3} r^{2/3}', '4/3 * 2.1 * {\epsilon}^{2/3} r^{2/3}');
-title('Structure function');
+title('Structure function', 'FontSize', 12, 'FontWeight', 'bold');
+set(gca, 'TickDir', 'out', 'TickLength', [.02 .02],'XMinorTick', 'on', 'YMinorTick', 'on');
 
 %
 % ---- Plot 3rd moment ----
@@ -293,10 +298,11 @@ semilogx(rnd, m_tv3rd, 'r.', 'LineWidth', 1.3);
 
 % Style figure
 grid;
-ylabel('{{\mu}_r}^3');
-xlabel('r/{\eta}');
+ylabel('{{\mu}_r}^3', 'FontSize', 12, 'FontWeight', 'bold');
+xlabel('r/{\eta}', 'FontSize', 12, 'FontWeight', 'bold');
 legend(x_plot, 'Longitudinal', 'Transverse');
-title('Third central moment');
+title('Third central moment', 'FontSize', 12, 'FontWeight', 'bold');
+set(gca, 'TickDir', 'out', 'TickLength', [.02 .02],'XMinorTick', 'on', 'YMinorTick', 'on');
 
 %
 % ---- Plot skewness ----
@@ -312,10 +318,11 @@ semilogx(rnd, -m_tvS, 'r.', 'LineWidth', 1.3);
 
 % Style figure
 grid;
-ylabel('-{{S}_r}');
-xlabel('r/{\eta}');
+ylabel('-{{S}_r}', 'FontSize', 12, 'FontWeight', 'bold');
+xlabel('r/{\eta}', 'FontSize', 12, 'FontWeight', 'bold');
 legend(x_plot, 'Longitudinal', 'Transverse');
-title('Skewness');
+title('Skewness', 'FontSize', 12, 'FontWeight', 'bold');
+set(gca, 'TickDir', 'out', 'TickLength', [.02 .02],'XMinorTick', 'on', 'YMinorTick', 'on');
 
 %
 % ---- Plot kurtosis ----
@@ -331,7 +338,8 @@ semilogx(rnd, m_tvK, 'r.', 'LineWidth', 1.3);
 
 % Style figure
 grid;
-ylabel('{{K}_r}');
-xlabel('r/{\eta}');
+ylabel('{{K}_r}', 'FontSize', 12, 'FontWeight', 'bold');
+xlabel('r/{\eta}', 'FontSize', 12, 'FontWeight', 'bold');
 legend(x_plot, 'Longitudinal', 'Transverse');
-title('Kurtosis');
+title('Kurtosis', 'FontSize', 12, 'FontWeight', 'bold');
+set(gca, 'TickDir', 'out', 'TickLength', [.02 .02],'XMinorTick', 'on', 'YMinorTick', 'on');

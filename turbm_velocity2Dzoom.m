@@ -132,13 +132,13 @@ for i_step = 1:length(m_frameWidth)
     
     % Write title
     if i_step == 1
-        title(x_subplot, sprintf('Velocity vector maps on %c-%c plane, at %c=%1.3f, t=%1.3f.\n Colormap indicates %c-component velocity.', c_directions, m_offsets(3), f_time, c_surfDirection));        
+        title(x_subplot, sprintf('Velocity vector maps on %c-%c plane, at %c=%1.3f, t=%1.3f.\n Colormap indicates %c-component velocity.', c_directions, m_offsets(3), f_time, c_surfDirection), 'FontSize', 12, 'FontWeight', 'bold');        
     elseif i_step == 2
-        title(x_subplot, 'Detail 1 (rectangle in top left image)');
+        title(x_subplot, 'Detail 1 (rectangle in top left image)', 'FontSize', 12, 'FontWeight', 'bold');
     elseif i_step == 3
-        title(x_subplot, 'Detail 2 (rectangle in top right image)');
+        title(x_subplot, 'Detail 2 (rectangle in top right image)', 'FontSize', 12, 'FontWeight', 'bold');
     elseif i_step == 4
-        title(x_subplot, 'Detail 3 (rectangle in bottom left image)');
+        title(x_subplot, 'Detail 3 (rectangle in bottom left image)', 'FontSize', 12, 'FontWeight', 'bold');
     end
 
 end

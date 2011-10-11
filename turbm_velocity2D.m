@@ -132,7 +132,8 @@ for i_timeStep = 1:i_timeSteps
     % Style figure
     TT.setFigureAttributes('2d', {c_directions(1), c_directions(2)});
     axis([m_X1(1), m_X1(end), m_X2(1), m_X2(end)]);
-    title(sprintf('Velocity vectormap on surface facing %c-direction. The colormap indicates %c-component of velocity.\nTime = %1.4f', c_surfDirection, c_surfDirection, f_time));
+    title(sprintf('Velocity vectormap on surface facing %c-direction. The colormap indicates %c-component of velocity.\nTime = %1.4f', c_surfDirection, c_surfDirection, f_time), 'FontSize', 12, 'FontWeight', 'bold');
+    TT.makeFigureSquare(x_figure);
     
     % Process video and move to next time step
     if i_timeSteps > 1

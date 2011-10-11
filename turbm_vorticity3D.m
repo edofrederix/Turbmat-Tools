@@ -163,6 +163,7 @@ for i_timeStep = 1:i_timeSteps
     % Style figure
     TT.setFigureAttributes('3d', {'x', 'y', 'z'});
     title(sprintf('%s iso-surfaces', cl_options{i_vortMethod}), 'FontSize', 13, 'FontWeight', 'bold');
+    TT.makeFigureSquare(x_figure);
 
     % Process video and move to next time step
     if i_timeSteps > 1
