@@ -830,9 +830,9 @@ classdef TurbTools < handle
                             % loop over different steps in direction
                             for k = 1:(size(VV, j)-incrSteps)
                                 if j == 1
-                                    df = VV(k+incrSteps, :, :) - VV(k, :, :);
-                                elseif j == 2
                                     df = VV(:, k+incrSteps, :) - VV(:, k, :);
+                                elseif j == 2
+                                    df = VV(k+incrSteps, :, :) - VV(k, :, :);
                                 else
                                     df = VV(:, :, k+incrSteps) - VV(:, :, k);
                                 end
