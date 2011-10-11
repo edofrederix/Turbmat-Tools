@@ -98,17 +98,72 @@ classdef TurbTools < handle
                 end
             end
             
-            % Look for Turbmat
+            % Look for Turbmat in TurbTools and parent directories
+            searchLevels=2;
+            searchPath=fileparts(which('TurbTools'));
+            if ispc
+                cdParent='\..';
+            else
+                cdParent='/..';
+            end
+           
             if ~exist('TurbulenceService', 'file')
-                thisPath = fileparts(which('TurbTools'));
-                a = dir(thisPath);
-                set = 0;
-                for i = 1:numel(a)
-                    if a(i).isdir && ~isempty(regexpi(a(i).name, 'turbmat'))
-                        addpath(sprintf('%s/%s', thisPath, a(i).name));
-                        set = 1;
+                
+               for n=0:searchLevels
+                    
+                    if n > 0
+                        searchPath=strcat(searchPath,cdParent);
+                    end
+                    
+                    thisPath = searchPath;
+                    
+                    addpath(thisPath);
+                    if( exist('TurbulenceService', 'file') )
+                        set=1;
+                        break;
+                    else
+                        rmpath(thisPath);
+                    end
+                    
+                    a = dir(thisPath);
+                    
+                    % Create cell array of child directories
+                    for i = 1:numel(a)
+                        b(i) = {a(i).name};
+                    end
+                    % Sort to get sorted index
+                    [b,sortIndx]=sort(b);
+                    clear b;
+                    
+                    % Check child directories
+                    set = 0;
+                    for i = numel(a):-1:1
+                        
+                        % Extract index of descending order
+                        j=sortIndx(i);
+                        
+                        if a(j).isdir && ...
+                                ~isempty(regexpi(a(j).name, 'turbmat')) && ...
+                                isempty(regexpi(a(j).name, 'turbmat-tools'))
+                            
+                            newPath=sprintf('%s/%s', thisPath, a(j).name);
+                            
+                            addpath(newPath);
+                            if( exist('TurbulenceService', 'file') )
+                                set=1;
+                                break;
+                            else
+                                rmpath(newPath);
+                            end
+                            
+                        end
+                        
+                    end
+                    
+                    if set
                         break;
                     end
+                    
                 end
                 
                 if ~set || ~exist('TurbulenceService', 'file')
