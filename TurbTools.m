@@ -273,32 +273,6 @@ classdef TurbTools < handle
                 result(i) = result(i-1)*fac;
             end
         end
-                
-        %
-        % ---- 2D Surface functions ----
-        %
-        
-        % Set the two directions of a surface, depending on the
-        % direction of the normal
-        function chars = setDirections(~, c_surfDirection)
-            if c_surfDirection == 'x'; chars(1) = 'z'; else chars(1) = 'x'; end
-            if c_surfDirection == 'y'; chars(2) = 'z'; else chars(2) = 'y'; end
-            chars(3) = c_surfDirection;
-        end
-        
-        % This function creates a 3 x i_points matrix with on row 1 all
-        % the direction1-coordinates, on row 2 all direction2-coordinates
-        % are given, and on row 3 all (constant) direction3-coordinates
-        % which equals the offset
-        function m_points = fillRectangle(~, m_nQueryPoints, m_offsets, m_spacing)
-            
-            xlin = linspace(0, (m_nQueryPoints(1)-1)*m_spacing(1), m_nQueryPoints(1)) + m_offsets(1);
-            ylin = linspace(0, (m_nQueryPoints(2)-1)*m_spacing(2), m_nQueryPoints(2)) + m_offsets(2);
-            
-            m_points(1,:) = repmat(xlin, 1, m_nQueryPoints(2));
-            m_points(2,:) = reshape(repmat(ylin, m_nQueryPoints(1), 1), 1, m_nQueryPoints(1)*m_nQueryPoints(2));
-            m_points(3,:) = m_offsets(3);
-        end       
         
         % We have received the number of physical points we want to query.
         % This may be too much. In that case we need to ditribute the
@@ -333,6 +307,32 @@ classdef TurbTools < handle
                 fprintf('Querying %ix%ix%i physical grid points with %ix%ix%i query points\n', m_nPoints(1:3), m_nQueryPoints);
             end
         end
+                
+        %
+        % ---- 2D Surface functions ----
+        %
+        
+        % Set the two directions of a surface, depending on the
+        % direction of the normal
+        function chars = setDirections(~, c_surfDirection)
+            if c_surfDirection == 'x'; chars(1) = 'z'; else chars(1) = 'x'; end
+            if c_surfDirection == 'y'; chars(2) = 'z'; else chars(2) = 'y'; end
+            chars(3) = c_surfDirection;
+        end
+        
+        % This function creates a 3 x i_points matrix with on row 1 all
+        % the direction1-coordinates, on row 2 all direction2-coordinates
+        % are given, and on row 3 all (constant) direction3-coordinates
+        % which equals the offset
+        function m_points = fillRectangle(~, m_nQueryPoints, m_offsets, m_spacing)
+            
+            xlin = linspace(0, (m_nQueryPoints(1)-1)*m_spacing(1), m_nQueryPoints(1)) + m_offsets(1);
+            ylin = linspace(0, (m_nQueryPoints(2)-1)*m_spacing(2), m_nQueryPoints(2)) + m_offsets(2);
+            
+            m_points(1,:) = repmat(xlin, 1, m_nQueryPoints(2));
+            m_points(2,:) = reshape(repmat(ylin, m_nQueryPoints(1), 1), 1, m_nQueryPoints(1)*m_nQueryPoints(2));
+            m_points(3,:) = m_offsets(3);
+        end       
         
         %
         % ---- 3D Volume functions ----
