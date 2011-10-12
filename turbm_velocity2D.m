@@ -41,7 +41,7 @@ beep off;
 clc;
 
 TT = TurbTools(1);
-%%
+
 %
 % ---- Ask user input ----
 %
