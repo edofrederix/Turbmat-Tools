@@ -12,6 +12,13 @@
 % Technology Department of Mechanical Engineering edofrederix@jhu.edu,
 % edofrederix@gmail.com
 %
+% Modified by:
+%
+% Jason Graham
+% The Johns Hopkins University
+% Department of Mechanical Engineering
+% jgraha8@gmail.com
+%
 
 %
 % This file is part of Turbmat-Tools.
