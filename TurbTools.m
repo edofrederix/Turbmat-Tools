@@ -105,18 +105,18 @@ classdef TurbTools < handle
                 end
             end
             
-            % Look for Turbmat in TurbTools and parent directories
-            searchLevels=2;
-            searchPath=fileparts(which('TurbTools'));
-            if ispc
-                cdParent='\..';
-            else
-                cdParent='/..';
-            end
-           
             if ~exist('TurbulenceService', 'file')
                 
-               for n=0:searchLevels
+                % Look for Turbmat in Turbmat-Tools and parent directories
+                searchLevels=2;
+                searchPath=fileparts(which('TurbTools'));
+                if ispc
+                    cdParent='\..';
+                else
+                    cdParent='/..';
+                end
+                
+                for n=0:searchLevels
                     
                     if n > 0
                         searchPath=strcat(searchPath,cdParent);
@@ -183,7 +183,7 @@ classdef TurbTools < handle
                 % Extract path from TurbulenceService location
                 turbservPath = which('TurbulenceService');
                 realPath = regexp(turbservPath, '^(?<path>.*?)[\/]@?TurbulenceService(?:.*)$', 'tokens');
-
+                
                 if numel(realPath)
                     fprintf('Using Turbmat library from %s\n', realPath{1}{1});
                 end
