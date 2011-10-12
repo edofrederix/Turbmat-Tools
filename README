@@ -156,21 +156,26 @@ A short step-by-step manual to get started using Turbmat-Tools:
     preference.
     
   * Turbmat-Tools depends on Turbmat. Download Turbmat from the JHU Turbulence
-    website: http://turbulence.pha.jhu.edu/. Extract the package inside the
-    Turbmat-Tools path. Turbmat-Tools will automatically try to detect the
-    location of Turbmat. For example, a valid installation of Turbmat and
-    Turbmat-Tools on Linux, Unix or Mac would look like:
+    website: http://turbulence.pha.jhu.edu/. Turbmat-Tools will try to find a
+    directory containing the Turbmat library either within its own directory
+    or its two parent directories. The Turbmat directory name should contain
+    the word 'turbmat' (but not 'turbmat-tools').
     
-      Turbmat-Tools: /home/user/Turbmat-Tools-.../ 
-      Turbmat: /home/user/Turbmat-Tools-<version>/Turbmat-.../
+    For example, a valid installation of Turbmat and Turbmat-Tools on *nix
+    type OS would look like:
+    
+      Turbmat-Tools: /home/user/Turbmat-Tools-<version>/ 
+      Turbmat: /home/user/Turbmat-<version>/
     
     And for Windows:
     
-      Turbmat-Tools: c:\Users\user\Documents\Turbmat-Tools-...\ 
-      Turbmat: c:\Users\user\Documents\Turbmat-Tools-<version>\Turbmat-...\
+      Turbmat-Tools: c:\Users\user\Documents\Turbmat-Tools-<version>\ 
+      Turbmat: c:\Users\user\Documents\Turbmat-<version>\
     
-    Make sure that Turbmat is inside Turbmat-Tools. You may leave version
-    numbers in the directory name of both Turbmat and Turbmat-Tools.
+    You may leave version numbers in the directory name of both Turbmat and
+    Turbmat-Tools. Turbmat-Tools will inform the user if it cannot find the
+    Turbmat library. If it can successfully access the TurbulenceService
+    class, it will print the path in which Turbmat is installed.
 
   * If you are in possession of an authentication token, you may create a file
     called "authtoken.txt" in the same directory as TurbTools.m resides in.
