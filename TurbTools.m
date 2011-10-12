@@ -120,6 +120,7 @@ classdef TurbTools < handle
                     addpath(thisPath);
                     if( exist('TurbulenceService', 'file') )
                         set=1;
+                        fprintf('Using Turbmat library from %s\n', thisPath);
                         break;
                     else
                         rmpath(thisPath);
@@ -128,11 +129,12 @@ classdef TurbTools < handle
                     a = dir(thisPath);
                     
                     % Create cell array of child directories
+                    b = cell(numel(a),1);
                     for i = 1:numel(a)
                         b(i) = {a(i).name};
                     end
                     % Sort to get sorted index
-                    [b,sortIndx]=sort(b);
+                    [~, sortIndx]=sort(b);
                     clear b;
                     
                     % Check child directories
@@ -151,6 +153,7 @@ classdef TurbTools < handle
                             addpath(newPath);
                             if( exist('TurbulenceService', 'file') )
                                 set=1;
+                                fprintf('Using Turbmat library from %s\n', newPath);
                                 break;
                             else
                                 rmpath(newPath);
@@ -168,6 +171,14 @@ classdef TurbTools < handle
                 
                 if ~set || ~exist('TurbulenceService', 'file')
                     error('Could not find Turbmat package. Make sure to include a copy of Turbmat in the Turbmat-Tools path.');
+                end
+            else
+                % Extract path from TurbulenceService location
+                turbservPath = which('TurbulenceService');
+                realPath = regexp(turbservPath, '^(?<path>.*?)[\/]@?TurbulenceService(?:.*)$', 'tokens');
+
+                if numel(realPath)
+                    fprintf('Using Turbmat library from %s\n', realPath{1}{1});
                 end
             end
             
