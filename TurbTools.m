@@ -129,11 +129,12 @@ classdef TurbTools < handle
                     a = dir(thisPath);
                     
                     % Create cell array of child directories
+                    b = cell(numel(a),1);
                     for i = 1:numel(a)
                         b(i) = {a(i).name};
                     end
                     % Sort to get sorted index
-                    [b,sortIndx]=sort(b);
+                    [~, sortIndx]=sort(b);
                     clear b;
                     
                     % Check child directories
