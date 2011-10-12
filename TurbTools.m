@@ -181,11 +181,13 @@ classdef TurbTools < handle
                 end
             else
                 % Extract path from TurbulenceService location
-                turbservPath = which('TurbulenceService');
-                realPath = regexp(turbservPath, '^(?<path>.*?)[\/]@?TurbulenceService(?:.*)$', 'tokens');
+                turbservPath = fileparts(which('TurbulenceService'));
+                realPath = regexp(turbservPath, '^(?<path>.*)[\/]@?TurbulenceService$', 'tokens');
                 
                 if numel(realPath)
                     fprintf('Using Turbmat library from %s\n', realPath{1}{1});
+                else
+                    fprintf('Using Turbmat library from %s\n', turbservPath);
                 end
             end
             
