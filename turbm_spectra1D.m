@@ -123,7 +123,7 @@ TT.setFigureAttributes('3d', {'x', 'y', 'z'});
 %
 
 [kEta E] = TT.scaleEnergySpectrum(k(1:n/2+1), pwr(1:n/2+1));
-
+subplot(2,2,2);
 %subplot(2,2,[2 4]);
 x_plot = loglog(kEta, E/1024);
 
