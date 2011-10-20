@@ -110,7 +110,7 @@ classdef TurbTools < handle
                 token = fscanf(fid,'%s');
                 
                 if ischar(token)
-                    PT.c_authkey = token
+                    PT.c_authkey = token;
                 end
                 fclose(fid);
             end
