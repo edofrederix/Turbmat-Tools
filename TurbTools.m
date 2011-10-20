@@ -99,10 +99,20 @@ classdef TurbTools < handle
             % See if we have an authtoken.txt file
             fid = fopen('authtoken.txt');
             if fid > 0
-                token = fgets(fid);
+                % fgets retains the newline character and breaks on Linux
+                %token = fgets(fid);
+                
+                % fgetl disregards newline character and works on Linux
+                %token = fgetl(fid);
+                
+                % Makes no assumption a/b newline character - just reads
+                % string - probably more portable
+                token = fscanf(fid,'%s');
+                
                 if ischar(token)
-                    PT.c_authkey = token;
+                    PT.c_authkey = token
                 end
+                fclose(fid);
             end
             
 	    % Check if Turbmat is already in path
