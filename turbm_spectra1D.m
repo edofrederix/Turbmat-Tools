@@ -101,7 +101,7 @@ end
 % Style figure
 grid;
 title(sprintf('Inline velocity for %i random lines', i_lines), 'FontSize', 12, 'FontWeight', 'bold');
-TT.setFigureAttributes('2d', {'x_a', 'v_a'});
+TT.setFigureAttributes('1d', {'x', 'v'});
 
 %
 % ---- Plot random lines in space ----

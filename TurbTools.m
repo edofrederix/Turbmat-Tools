@@ -972,16 +972,19 @@ classdef TurbTools < handle
         % Set two-dimensional or three-dimensional figure attributes
         function setFigureAttributes(PT, type, cl_labels)
             
-            if strcmp(type, '2d')
+            if strcmp(type, '1d')
+                xlabel(cl_labels{1}, 'FontSize', 12, 'FontWeight', 'bold');
+                ylabel(cl_labels{2}, 'FontSize', 12, 'FontWeight', 'bold');
+                set(gca, 'TickDir', 'out', 'TickLength', [.02 .02],'XMinorTick', 'on', 'YMinorTick', 'on');
+                axis equal;                        
+            elseif strcmp(type, '2d')
                 xlabel(cl_labels{1}, 'FontSize', 12, 'FontWeight', 'bold');
                 ylabel(cl_labels{2}, 'FontSize', 12, 'FontWeight', 'bold');
                 colorbar;
                 colormap(PT.c_colormap);
                 set(gca, 'TickDir', 'out', 'TickLength', [.02 .02],'XMinorTick', 'on', 'YMinorTick', 'on');
                 axis equal;
-            end
-            
-            if strcmp(type, '3d')
+            elseif strcmp(type, '3d')
                 xlabel(cl_labels{1}, 'FontSize', 12, 'FontWeight', 'bold');
                 ylabel(cl_labels{2}, 'FontSize', 12, 'FontWeight', 'bold');
                 zlabel(cl_labels{3}, 'FontSize', 12, 'FontWeight', 'bold');
